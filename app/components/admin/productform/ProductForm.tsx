@@ -23,7 +23,7 @@ export interface ProductFormValues
     description:   string;
     type:          ApiProductType;
     status:        ProductStatus;
-    price:         string; // texto en el formulario; se convierte al enviar
+    price:         string;
     stock:         string;
     leadTimeDays:  string;
     isHighlighted: boolean;
@@ -53,8 +53,6 @@ const toForm = (product?: ApiProduct): ProductFormValues => ({
 
 const toNumberOrNull = (value: string): number | null => (value.trim() === '' ? null : Number(value.replace(/\D/g, '')));
 
-// Formulario único para crear y editar. Los precios solo se envían si el usuario
-// es ADMIN (el backend también lo valida y responde 403 a un EDITOR).
 const ProductForm = ({initial, categories, canSetPrice, saving, onSubmit}: ProductFormProps) =>
 {
     const [values, setValues] = useState<ProductFormValues>(() => toForm(initial));

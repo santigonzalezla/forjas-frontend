@@ -10,14 +10,12 @@ export interface NavTarget
 
 interface PageNavProps
 {
-    back:   NavTarget;                         // a dónde vuelve la flecha (la sección padre)
-    crumbs: {href?: string; label: string}[];  // la última suele ser la página actual, sin enlace
-    prev?:  NavTarget | null;                  // pieza o proyecto anterior en la misma lista
+    back:   NavTarget;
+    crumbs: {href?: string; label: string}[];
+    prev?:  NavTarget | null;
     next?:  NavTarget | null;
 }
 
-// Navegación dentro de la página: volver a la sección, ruta clicable y, si aplica,
-// recorrer las piezas vecinas sin regresar al listado. Mismos botones redondos del carrusel.
 const PageNav = ({back, crumbs, prev, next}: PageNavProps) =>
 {
     const hasSiblings = prev !== undefined || next !== undefined;

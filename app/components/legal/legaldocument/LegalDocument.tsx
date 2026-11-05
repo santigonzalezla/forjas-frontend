@@ -8,7 +8,6 @@ const OTHER_DOCS = [
     {href: '/returns', label: 'Cambios y garantías'},
 ];
 
-// Documento legal: índice fijo a la izquierda y texto en columna de lectura
 const LegalDocument = ({content, path}: {content: LegalDocumentContent; path: string}) =>
 {
     return (

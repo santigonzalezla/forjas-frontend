@@ -1,12 +1,10 @@
-// Tipos de trabajo que se pueden cotizar. El id viaja en la URL (?type=) y en
-// inglés; la etiqueta en español es lo que se guarda en la solicitud.
 
 export interface QuoteType
 {
     id:        string;
     label:     string;
     hint:      string;
-    measures:  boolean; // ¿tiene sentido pedir ancho y alto?
+    measures:  boolean;
 }
 
 export const QUOTE_TYPES: QuoteType[] = [
@@ -20,7 +18,6 @@ export const QUOTE_TYPES: QuoteType[] = [
     {id: 'other',       label: 'Otro trabajo',            hint: 'Cuéntanos qué tienes en mente',             measures: false},
 ];
 
-// Sugerencia de tipo a partir del slug de un producto de la tienda (?piece=)
 const PIECE_HINTS: [RegExp, string][] = [
     [/porton/,             'gate'],
     [/puerta/,             'door'],

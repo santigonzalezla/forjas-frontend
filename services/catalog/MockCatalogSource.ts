@@ -3,7 +3,6 @@ import type {CatalogFilters, CatalogPage, CategoryOption, FeaturedPiece, Product
 import {PRODUCT_CATEGORY_LABELS, ProductCategory} from '@/app/interfaces/enums';
 import {MOCK_FEATURED_PIECES, MOCK_PRODUCTS, MOCK_SHOP_HIGHLIGHTS} from '@/services/mock/mockData';
 
-// Datos locales: sirven para desarrollar sin backend (CATALOG_SOURCE=mock)
 const ALL: Product[] = Object.values(MOCK_PRODUCTS);
 
 const slugOf = (category: ProductCategory) => category.toLowerCase();

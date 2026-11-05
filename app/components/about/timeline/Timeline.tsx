@@ -2,7 +2,6 @@ import Image from 'next/image';
 import styles from './timeline.module.css';
 import type {Milestone} from '@/lib/content/about';
 
-// Línea de tiempo vertical. Los hitos sin año confirmado solo muestran el punto
 const Timeline = ({milestones}: {milestones: Milestone[]}) =>
 {
     return (

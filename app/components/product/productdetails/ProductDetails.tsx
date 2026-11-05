@@ -2,7 +2,6 @@ import styles from './productdetails.module.css';
 import {ProductType} from '@/app/interfaces/enums';
 import type {ProductDetail} from '@/app/interfaces/interfaces';
 
-// Información secundaria en acordeón nativo (<details>): accesible y sin JavaScript
 const ProductDetails = ({product}: {product: ProductDetail}) =>
 {
     const madeToOrder = product.stock === null || product.stock === 0;

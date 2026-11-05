@@ -1,5 +1,3 @@
-// Campo trampa contra bots: invisible para personas y lectores de pantalla.
-// El backend rechaza la solicitud si llega con contenido.
 const Honeypot = () =>
 {
     return (

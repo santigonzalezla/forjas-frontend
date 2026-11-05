@@ -31,8 +31,6 @@ export async function getFeaturedProjects(): Promise<Project[]>
 
 const FOUNDED_YEAR = 1997;
 
-// Años de oficio. Se calcula dentro de 'use cache' porque con Cache Components no se
-// puede leer la fecha durante el render; se recalcula una vez al día.
 export async function getYearsOfCraft(): Promise<number>
 {
     'use cache';

@@ -8,7 +8,6 @@ import Field, {Input} from '@/app/components/ui/field/Field';
 import Button from '@/app/components/ui/button/Button';
 import {useAuth} from '@/context/AuthContext';
 
-// Solo se permite volver a rutas internas del panel (evita redirecciones abiertas)
 const safeNext = (value: string | null): string => (value && value.startsWith('/admin') ? value : '/admin');
 
 const LoginForm = () =>

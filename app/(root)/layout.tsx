@@ -1,6 +1,8 @@
 import type {Metadata, Viewport} from 'next';
-import type {ReactNode} from 'react';
+import {Suspense, type ReactNode} from 'react';
 import {Toaster} from 'sonner';
+import {Analytics} from '@vercel/analytics/next';
+import {SpeedInsights} from '@vercel/speed-insights/next';
 import './globals.css';
 import {APP_DESCRIPTION, APP_NAME, SERVER_URL} from '@/lib/constants';
 import {fontVariables} from '@/app/fonts/fonts';
@@ -38,6 +40,12 @@ export default function RootLayout({children}: Readonly<{children: ReactNode}>)
                         {children}
                     </AuthProvider>
                 </ThemeProvider>
+                {/* Métricas de Vercel: leen la ruta actual, por eso van en Suspense
+                    (con Cache Components no pueden bloquear el prerender) */}
+                <Suspense fallback={null}>
+                    <Analytics />
+                    <SpeedInsights />
+                </Suspense>
             </body>
         </html>
     );

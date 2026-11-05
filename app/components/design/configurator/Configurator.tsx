@@ -45,10 +45,8 @@ const CUSHIONS: {id: Design['cushion']; label: string; hint: string}[] = [
 
 const toggle = <T,>(list: T[], item: T): T[] => (list.includes(item) ? list.filter(x => x !== item) : [...list, item]);
 
-// Muestra de la opción "pintado": un círculo con varios colores de la paleta
 const PAINTED_SWATCH = `conic-gradient(${['rojo', 'amarillo', 'verde', 'turquesa', 'azul', 'morado', 'rojo'].map(id => findColor(id as PaletteId).hex).join(', ')})`;
 
-// ─── Selectores reutilizables ────────────────────────────────────────────────
 const ColorSwatches = ({label, value, onChange}: {label: string; value: PaletteId; onChange: (id: PaletteId) => void}) => (
     <fieldset className={styles.group}>
         <legend className={styles.legend}>{label} · <span>{findColor(value).label}</span></legend>
@@ -68,7 +66,6 @@ const ColorSwatches = ({label, value, onChange}: {label: string; value: PaletteI
     </fieldset>
 );
 
-// Acabado de la estructura: metales o pintado con un color de la paleta
 const FinishPicker = ({design, onChange}: {design: Design; onChange: (patch: Partial<Design>) => void}) => (
     <>
         <fieldset className={styles.group}>
@@ -104,13 +101,11 @@ const FinishPicker = ({design, onChange}: {design: Design; onChange: (patch: Par
 const Configurator = ({initialDesign, product}: ConfiguratorProps) =>
 {
     const [design, setDesign] = useState(initialDesign);
-    // Si viene de un producto de la tienda la pieza ya está elegida: se arranca en el paso 2
     const [step,   setStep]   = useState(product ? 1 : 0);
 
     const piece = findPiece(design.type);
     const steps = STEPS[piece.family];
 
-    // ─── Estimado en vivo (el backend aplica las tarifas que edita el dueño) ───
     const debounced = useDebounce(design, 350);
     const {data: estimate, error: estimateError, execute: estimateNow, isLoading: estimating} =
         useFetch<Estimate>('configurator/estimate', {method: 'POST', immediate: false, requiresAuth: false});
@@ -120,7 +115,6 @@ const Configurator = ({initialDesign, product}: ConfiguratorProps) =>
         estimateNow({body: designPayload(debounced)});
     }, [debounced, estimateNow]);
 
-    // ─── El diseño vive en la URL: recargar o compartir el enlace lo conserva ───
     const query     = designToQuery(design) + (product ? `&piece=${product.slug}` : '');
     const shareLink = `${SERVER_URL}/design?${query}`;
 
@@ -131,7 +125,6 @@ const Configurator = ({initialDesign, product}: ConfiguratorProps) =>
 
     const update = (patch: Partial<Design>) => setDesign(current => ({...current, ...patch}));
 
-    // Vuelve a los valores iniciales de la pieza actual (con la variante del producto, si aplica)
     const resetDesign = () =>
     {
         const fromProduct = product && initialDesign.type === design.type;
@@ -156,7 +149,6 @@ const Configurator = ({initialDesign, product}: ConfiguratorProps) =>
     const range    = estimate ? `${formatCOP(estimate.min)} – ${formatCOP(estimate.max)}` : null;
     const whatsapp = buildWhatsAppLink(`Hola, diseñé esta pieza en la página: ${summary}.${range ? ` Estimado: ${range}.` : ''} ${shareLink}`);
 
-    // ─── Envío como solicitud de diseño ─────────────────────────────────────────
     const {submit, isLoading: sending, created} = useQuoteSubmit();
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) =>
@@ -180,7 +172,6 @@ const Configurator = ({initialDesign, product}: ConfiguratorProps) =>
         });
     };
 
-    // ─── Pasos ──────────────────────────────────────────────────────────────────
     const pieceStep = (
         <div className={styles.stack}>
             {FAMILIES.map(family => (

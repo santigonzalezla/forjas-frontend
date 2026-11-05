@@ -62,7 +62,6 @@ function EditProduct()
     );
 }
 
-// useParams depende de la URL: Suspense evita que bloquee el prerender
 export default function EditProductPage()
 {
     return (

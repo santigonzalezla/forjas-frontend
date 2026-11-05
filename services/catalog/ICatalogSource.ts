@@ -1,6 +1,5 @@
 import type {CatalogFilters, CatalogPage, CategoryOption, FeaturedPiece, Product, ProductDetail} from '@/app/interfaces/interfaces';
 
-// Origen de los datos del catálogo: backend Nest (ApiCatalogSource) o datos locales.
 export interface ICatalogSource
 {
     getFeaturedPieces(): Promise<FeaturedPiece[]>;

@@ -9,8 +9,6 @@ import Honeypot from '@/app/components/forms/honeypot/Honeypot';
 import FormSuccess from '@/app/components/forms/formsuccess/FormSuccess';
 import {useQuoteSubmit} from '@/hooks/useQuoteSubmit';
 
-// Formulario corto de contacto. Formulario no controlado: el navegador valida los
-// campos requeridos y se lee todo con FormData al enviar.
 const ContactForm = () =>
 {
     const {submit, isLoading, created} = useQuoteSubmit();

@@ -11,7 +11,6 @@ interface FieldProps
     className?: string;
 }
 
-// Envoltura de campo: etiqueta, control, ayuda y error, siempre en el mismo orden
 const Field = ({label, htmlFor, hint, error, children, className = ''}: FieldProps) =>
 {
     return (

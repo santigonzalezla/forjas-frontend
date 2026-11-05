@@ -24,22 +24,19 @@ const TMP_COLOR = new Color();
 const Z_AXIS    = new Vector3(0, 0, 1);
 const FOV       = 30;
 
-// Pintura de taller sobre metal: poco brillo metálico, satinada
 const PAINT = {metalness: 0.2, roughness: 0.5};
 
-// Geometrías unitarias compartidas: cada barra, punta o bola es una instancia escalada
 const BOX_GEOMETRY  = new BoxGeometry(1, 1, 1);
 const TIP_GEOMETRY  = new OctahedronGeometry(1, 0);
 const BALL_GEOMETRY = new SphereGeometry(1, 16, 12);
 
-// Barrote torcido: caja con muchos segmentos a lo largo, girada sobre su eje
 const TWIST_GEOMETRY = (() =>
 {
     const geometry = new BoxGeometry(1, 1, 1, 64, 1, 1);
     const position = geometry.attributes.position;
     for (let i = 0; i < position.count; i++)
     {
-        const angle = position.getX(i) * Math.PI * 2 * 6; // seis vueltas a lo largo
+        const angle = position.getX(i) * Math.PI * 2 * 6;
         const y = position.getY(i);
         const z = position.getZ(i);
         position.setY(i, y * Math.cos(angle) - z * Math.sin(angle));
@@ -57,7 +54,6 @@ const barMatrix = (bar: Bar, matrix: Matrix4) =>
     return matrix.compose(
         new Vector3((bar.a[0] + bar.b[0]) / 2, (bar.a[1] + bar.b[1]) / 2, 0),
         new Quaternion().setFromAxisAngle(Z_AXIS, Math.atan2(dy, dx)),
-        // Se alarga medio grosor por lado para que las uniones queden cerradas
         new Vector3(len + bar.t, bar.t, bar.d),
     );
 };
@@ -68,14 +64,10 @@ const tipMatrix = (tip: Tip, matrix: Matrix4) =>
 const ballMatrix = (ball: Tip, matrix: Matrix4) =>
     matrix.compose(new Vector3(ball.at[0], ball.at[1], 0), new Quaternion(), new Vector3(ball.size, ball.size, ball.size));
 
-// ─── Materiales compartidos y su animación ───────────────────────────────────
-// La estructura sigue el acabado (metal o pintado) y se "recalienta" con cada cambio.
-// Las mutaciones por cuadro van por refs, no sobre valores de hooks.
 const useFrameMaterial = (design: Design) =>
 {
     const material = useMemo(() => new MeshStandardMaterial({emissive: HOT_COLOR, emissiveIntensity: 0, side: DoubleSide}), []);
     const brass    = useMemo(() => new MeshStandardMaterial({color: '#b8913f', metalness: 1, roughness: 0.3}), []);
-    // Lámina en corte láser: mismo acabado que la estructura, calada con un mapa de transparencia
     const laser    = useMemo(() => new MeshStandardMaterial({emissive: HOT_COLOR, emissiveIntensity: 0, side: DoubleSide, alphaTest: 0.5}), []);
     const ref      = useRef<MeshStandardMaterial | null>(null);
     const laserRef = useRef<MeshStandardMaterial | null>(null);
@@ -125,7 +117,6 @@ const useFrameMaterial = (design: Design) =>
         }
     });
 
-    // Cada cambio de diseño "recalienta" un poco la pieza: se ve qué cambió
     const reheat = useCallback((amount: number) =>
     {
         heat.current = Math.max(heat.current, amount);
@@ -134,7 +125,6 @@ const useFrameMaterial = (design: Design) =>
     return {material, brass, laser, setLaserPattern, reheat};
 };
 
-// ─── Instancias (barras, puntas, bolas) ──────────────────────────────────────
 const Instances = <T,>({items, geometry, material, toMatrix}: {items: T[]; geometry: BufferGeometry; material: MeshStandardMaterial; toMatrix: (item: T, m: Matrix4) => Matrix4}) =>
 {
     const ref = useRef<InstancedMesh>(null);
@@ -150,15 +140,11 @@ const Instances = <T,>({items, geometry, material, toMatrix}: {items: T[]; geome
     }, [items, toMatrix]);
 
     if (items.length === 0) return null;
-    // key por cantidad: InstancedMesh no puede crecer, se recrea si cambia el conteo
     return <instancedMesh key={items.length} ref={ref} args={[geometry, material, items.length]} />;
 };
 
-// ─── Cámara que encuadra la pieza ────────────────────────────────────────────
-// Ornamentación de frente; muebles un poco desde arriba para ver tableros y asientos
 const FitCamera = ({width, height, elevated}: {width: number; height: number; elevated: boolean}) =>
 {
-    // La cámara se lee del estado del cuadro (no de useThree) para poder moverla aquí
     useFrame(({camera, size}, delta) =>
     {
         const tan      = Math.tan(MathUtils.degToRad(FOV / 2));
@@ -177,8 +163,6 @@ const FitCamera = ({width, height, elevated}: {width: number; height: number; el
     return null;
 };
 
-// Lámina calada: un plano con coordenadas UV en metros, para que el motivo conserve
-// su escala sin importar el ancho de la hoja y continúe entre hojas vecinas
 const LaserSheet = ({rect, material, tile}: {rect: Rect; material: MeshStandardMaterial; tile: number}) =>
 {
     const geometry = useMemo(() =>
@@ -187,7 +171,6 @@ const LaserSheet = ({rect, material, tile}: {rect: Rect; material: MeshStandardM
         const h = rect.y1 - rect.y0;
         const plane = new PlaneGeometry(w, h);
         const uv = plane.attributes.uv;
-        // Coordenadas en metros del mundo: el diseño sigue de una hoja a la otra sin repetirse
         for (let i = 0; i < uv.count; i++) uv.setXY(i, (rect.x0 + uv.getX(i) * w) / tile, (rect.y0 + uv.getY(i) * h) / tile);
         uv.needsUpdate = true;
         return plane;
@@ -198,13 +181,11 @@ const LaserSheet = ({rect, material, tile}: {rect: Rect; material: MeshStandardM
     return <mesh geometry={geometry} material={material} position={[(rect.x0 + rect.x1) / 2, (rect.y0 + rect.y1) / 2, 0]} />;
 };
 
-// ─── Ornamentación ───────────────────────────────────────────────────────────
 const Ornamental = ({design}: {design: Design}) =>
 {
     const model = useMemo(() => buildIronwork(design), [design]);
     const {material, brass, laser, setLaserPattern, reheat} = useFrameMaterial(design);
 
-    // Diseño del corte: una textura por motivo, que se repite según el tamaño de cada lámina
     const laserMap = useMemo(() => (design.style === 'laser' ? createLaserTexture(design.laserMotif) : null), [design.style, design.laserMotif]);
     useEffect(() =>
     {
@@ -215,7 +196,6 @@ const Ornamental = ({design}: {design: Design}) =>
     const plain   = useMemo(() => model.bars.filter(bar => !bar.twist), [model]);
     const twisted = useMemo(() => model.bars.filter(bar => bar.twist), [model]);
 
-    // Volutas, corazones, anillos, arcos y rosetas: una sola geometría fusionada por diseño
     const curves = useMemo(() =>
     {
         if (model.curves.length === 0) return null;
@@ -255,12 +235,8 @@ const Ornamental = ({design}: {design: Design}) =>
     );
 };
 
-// ─── Muebles ─────────────────────────────────────────────────────────────────
-// La tela estampada se repite cada TILE metros sin importar el tamaño del cojín:
-// se escalan las coordenadas UV de cada cara según sus medidas reales.
 const TILE = 0.3;
 
-// Hojas y vidrio no cambian con el diseño: un material compartido para todos
 const PLANT = new MeshStandardMaterial({color: '#3f8f45', metalness: 0, roughness: 0.75, flatShading: true});
 const GLASS = new MeshStandardMaterial({color: '#e8f1f2', metalness: 0, roughness: 0.05, transparent: true, opacity: 0.28});
 const ORIGIN: [number, number, number] = [0, 0, 0];
@@ -292,7 +268,6 @@ const cushionGeometry = (shape: Shape): Geometry | null =>
     {
         const [w, h, d] = shape.size;
         const geometry  = new BoxGeometry(w, h, d);
-        // Caras: +x, -x, +y, -y, +z, -z
         scaleGroupUVs(geometry, [[d / TILE, h / TILE], [d / TILE, h / TILE], [w / TILE, d / TILE], [w / TILE, d / TILE], [w / TILE, h / TILE], [w / TILE, h / TILE]]);
         return geometry;
     }
@@ -300,7 +275,6 @@ const cushionGeometry = (shape: Shape): Geometry | null =>
     {
         const geometry = new CylinderGeometry(shape.radius, shape.radius, shape.height, 56);
         const cap      = (shape.radius * 2) / TILE;
-        // Grupos: costado, tapa superior, tapa inferior
         scaleGroupUVs(geometry, [[(Math.PI * 2 * shape.radius) / TILE, shape.height / TILE], [cap, cap], [cap, cap]]);
         return geometry;
     }
@@ -313,7 +287,6 @@ const ShapeMesh = ({shape, material}: {shape: Shape; material: MeshStandardMater
         [shape],
     );
 
-    // Malla a medida (espaldar de la poltrona): se arma desde los vértices del modelo
     const surface = useMemo(() =>
     {
         if (shape.kind !== 'surface') return null;
@@ -329,7 +302,6 @@ const ShapeMesh = ({shape, material}: {shape: Shape; material: MeshStandardMater
     useEffect(() => () => surface?.dispose(), [surface]);
     useEffect(() => () => fabric?.dispose(), [fabric]);
 
-    // Posición y rotación siempre explícitas: si faltan, three.js conservaría las anteriores
     const position = shape.position ?? ORIGIN;
     const rotation = shape.rotation ?? ORIGIN;
 
@@ -352,8 +324,6 @@ const Furniture = ({design}: {design: Design}) =>
     const model = useMemo(() => buildFurniture(design), [design]);
     const {material: frame, reheat} = useFrameMaterial(design);
 
-    // Parte pintada: color liso o textura de franjas / arte. Se crea de nuevo (no se
-    // muta) cuando cambia el patrón o el color.
     const accent = useMemo(() =>
     {
         const map = design.pattern === 'solid' ? null : createPatternTexture(design.pattern, design.colors.accent);
@@ -366,7 +336,6 @@ const Furniture = ({design}: {design: Design}) =>
         });
     }, [design.pattern, design.colors.accent]);
 
-    // Cojín: tela blanca o estampada
     const cushion = useMemo(() =>
     {
         const map = design.cushion === 'print' ? createFabricTexture() : null;
@@ -398,7 +367,6 @@ const Furniture = ({design}: {design: Design}) =>
     );
 };
 
-// ─── Escena ──────────────────────────────────────────────────────────────────
 const PieceScene = ({design, onReady}: PieceSceneProps) =>
 {
     const furniture = isFurniture(design.type);

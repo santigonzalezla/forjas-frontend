@@ -24,7 +24,6 @@ interface UserForm
 
 const EMPTY: UserForm = {email: '', firstName: '', lastName: '', phone: '', role: UserRole.EDITOR, password: '', isActive: true};
 
-// Equipo interno: solo el dueño (ADMIN) entra aquí
 export default function TeamPage()
 {
     const {user}  = useAuth();

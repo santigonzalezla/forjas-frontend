@@ -12,7 +12,6 @@ interface ProductPreviewProps
     image?:  ApiProductImage;
 }
 
-// Réplica simplificada de la tarjeta de la tienda para que el dueño vea el resultado
 const ProductPreview = ({name, summary, price, image}: ProductPreviewProps) =>
 {
     return (

@@ -12,7 +12,6 @@ interface AddToCartButtonProps
     product: Product;
 }
 
-// Botón con estado (patrón StatefulButton): + → ✓ durante un momento
 const AddToCartButton = ({product}: AddToCartButtonProps) =>
 {
     const {addItem}          = useCart();

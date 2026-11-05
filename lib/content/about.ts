@@ -1,8 +1,5 @@
 import type {MediaImage} from '@/app/interfaces/interfaces';
 
-// Historia de Forjas según el propio taller (sitio Wix). Donde no hay año confirmado
-// el hito va sin año: no se inventan fechas.
-
 export interface Milestone
 {
     id:    string;

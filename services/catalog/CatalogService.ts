@@ -4,9 +4,8 @@ import type {CatalogFilters, CatalogPage, CategoryOption, FeaturedPiece, Product
 const HIGHLIGHT_LIMIT = 8;
 const PAGE_SIZE       = 12;
 const RELATED_LIMIT   = 4;
-const NEIGHBOR_LIMIT  = 100; // basta para recorrer una categoría completa
+const NEIGHBOR_LIMIT  = 100;
 
-// Reglas del catálogo que no dependen del origen de los datos
 export class CatalogService
 {
     constructor(private readonly source: ICatalogSource) {}
@@ -42,14 +41,12 @@ export class CatalogService
         return this.source.getProductSlugs();
     }
 
-    // Misma categoría, sin repetir el producto actual
     async getRelated(product: ProductDetail): Promise<Product[]>
     {
         const {products} = await this.source.listProducts({category: product.categorySlug}, RELATED_LIMIT + 1);
         return products.filter(p => p.id !== product.id).slice(0, RELATED_LIMIT);
     }
 
-    // Pieza anterior y siguiente dentro de la misma categoría, en el orden de la tienda
     async getNeighbors(product: ProductDetail): Promise<{prev: Product | null; next: Product | null}>
     {
         const {products} = await this.source.listProducts({category: product.categorySlug}, NEIGHBOR_LIMIT);

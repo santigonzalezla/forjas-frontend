@@ -1,10 +1,9 @@
-// ─── Producto ──────────────────────────────────────────────────────────────────
 
 export enum ProductType
 {
-    CATALOG      = 'CATALOG',      // precio fijo, se compra en el carrito
-    CONFIGURABLE = 'CONFIGURABLE', // se diseña en el configurador 3D
-    QUOTE        = 'QUOTE',        // a medida, se cotiza
+    CATALOG      = 'CATALOG',
+    CONFIGURABLE = 'CONFIGURABLE',
+    QUOTE        = 'QUOTE',
 }
 
 export enum ProductCategory

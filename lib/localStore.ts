@@ -1,6 +1,3 @@
-// Store mínimo sobre localStorage para usar con useSyncExternalStore.
-// Evita el patrón "leer localStorage en un useEffect y hacer setState", que provoca
-// renders en cascada y que React Compiler marca como error.
 
 type Listener = () => void;
 
@@ -17,8 +14,6 @@ export function createLocalStore<T>(key: string, fallback: T): LocalStore<T>
 {
     const listeners = new Set<Listener>();
 
-    // Se cachea por el texto crudo para devolver siempre la misma referencia
-    // mientras el valor no cambie (requisito de useSyncExternalStore).
     let cachedRaw: string | null = null;
     let cachedValue: T           = fallback;
 
@@ -32,7 +27,7 @@ export function createLocalStore<T>(key: string, fallback: T): LocalStore<T>
         }
         catch
         {
-            return fallback; // almacenamiento bloqueado (modo privado, permisos)
+            return fallback;
         }
 
         if (raw === cachedRaw) return cachedValue;
@@ -44,7 +39,7 @@ export function createLocalStore<T>(key: string, fallback: T): LocalStore<T>
         }
         catch
         {
-            cachedValue = fallback; // valor corrupto
+            cachedValue = fallback;
         }
         return cachedValue;
     };
@@ -53,7 +48,7 @@ export function createLocalStore<T>(key: string, fallback: T): LocalStore<T>
 
     const onStorage = (event: StorageEvent) =>
     {
-        if (event.key === key) emit(); // cambios hechos desde otra pestaña
+        if (event.key === key) emit();
     };
 
     return {
@@ -78,7 +73,6 @@ export function createLocalStore<T>(key: string, fallback: T): LocalStore<T>
             }
             catch
             {
-                // Sin almacenamiento el valor no persiste; igual se notifica
             }
             emit();
         },
@@ -90,14 +84,12 @@ export function createLocalStore<T>(key: string, fallback: T): LocalStore<T>
             }
             catch
             {
-                // Nada que limpiar
             }
             emit();
         },
     };
 }
 
-// true en el cliente después de hidratar, false en el servidor
 const noopSubscribe = () => () => {};
 export const hydrationStore = {
     subscribe:         noopSubscribe,

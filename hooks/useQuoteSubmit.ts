@@ -12,8 +12,6 @@ export interface QuoteCreated
     estimate: {min: number; max: number} | null;
 }
 
-// Envía una solicitud pública (contacto, cotización o diseño 3D) como multipart,
-// porque puede llevar fotos. Los campos vacíos no se mandan para no chocar con la validación.
 export function useQuoteSubmit()
 {
     const {execute, isLoading, error, data} = useFetch<QuoteCreated>('quote', {method: 'POST', immediate: false, requiresAuth: false, isFormData: true});

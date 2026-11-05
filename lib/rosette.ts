@@ -1,6 +1,3 @@
-// Geometría de la roseta del logo (la "O" de FORJAS), generada por código.
-// Una sola fuente para el dibujo SVG animado y para el modelo 3D, así ambos
-// coinciden trazo a trazo. Unidades: radio exterior = 1, centro en (0, 0).
 
 export type Point = [number, number];
 
@@ -16,12 +13,11 @@ export interface RosettePath
 export interface RosetteGeometry
 {
     paths:   RosettePath[];
-    collars: Point[]; // puntos donde las volutas se amarran a la barra central
+    collars: Point[];
 }
 
-const DIRECTIONS = [Math.PI / 2, 0, -Math.PI / 2, Math.PI]; // N, E, S, O
+const DIRECTIONS = [Math.PI / 2, 0, -Math.PI / 2, Math.PI];
 
-// Convierte coordenadas locales (a: hacia afuera, b: lateral) al plano de la roseta
 const toWorld = (theta: number, a: number, b: number): Point =>
 {
     const cos = Math.cos(theta);
@@ -46,7 +42,6 @@ const cubicBezier = (p0: Point, p1: Point, p2: Point, p3: Point, steps: number):
     return points;
 };
 
-// Espiral de Arquímedes: la voluta en C típica del hierro forjado
 const spiral = (center: Point, r0: number, r1: number, startAngle: number, turns: number, steps: number): Point[] =>
 {
     const points: Point[] = [];
@@ -67,7 +62,6 @@ export const buildRosette = (): RosetteGeometry =>
     const paths:   RosettePath[] = [];
     const collars: Point[]       = [];
 
-    // Anillo exterior
     paths.push({
         kind:   'ring',
         points: spiral([0, 0], 1, 1, 0, 1, 120).slice(0, -1),
@@ -78,7 +72,6 @@ export const buildRosette = (): RosetteGeometry =>
     {
         const at = (a: number, b: number) => toWorld(theta, a, b);
 
-        // Barra central con remate en lanza en ambos extremos
         paths.push({kind: 'bar', points: [at(0.13, 0), at(0.85, 0)], closed: false});
 
         paths.push({
@@ -93,8 +86,6 @@ export const buildRosette = (): RosetteGeometry =>
             closed: true,
         });
 
-        // Corazón: la punta mira al centro y el lomo redondeado queda junto al anillo.
-        // Cada mitad remata hacia adentro en una voluta en C.
         for (const side of [1, -1])
         {
             const lobe = cubicBezier([0.26, 0], [0.36, 0.34 * side], [0.98, 0.44 * side], [0.76, 0.02 * side], 48)
@@ -112,7 +103,6 @@ export const buildRosette = (): RosetteGeometry =>
     return {paths, collars};
 };
 
-// Path SVG (d) a partir de una lista de puntos
 export const toSvgPath = ({points, closed}: RosettePath): string =>
 {
     const [first, ...rest] = points;

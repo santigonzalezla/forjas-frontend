@@ -9,8 +9,6 @@ export const metadata: Metadata = {
     robots: {index: false},
 };
 
-// Las cuentas de cliente llegan con los pedidos en línea. Mientras tanto, la compra
-// es como invitado y el seguimiento se hace por WhatsApp.
 export default function AccountPage()
 {
     return (

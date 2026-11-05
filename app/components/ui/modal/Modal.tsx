@@ -14,7 +14,6 @@ interface ModalProps
     size?:    'md' | 'lg';
 }
 
-// Modal controlado (open/onClose), como los de LegalDocs. Cierra con Escape o clic afuera.
 const Modal = ({open, title, onClose, children, footer, size = 'md'}: ModalProps) =>
 {
     useEffect(() =>

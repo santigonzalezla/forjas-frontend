@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import styles from './consentcheck.module.css';
 
-// Autorización de tratamiento de datos (Ley 1581 de 2012). Siempre explícita, nunca marcada por defecto.
 const ConsentCheck = ({id = 'consent'}: {id?: string}) =>
 {
     return (

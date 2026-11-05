@@ -10,8 +10,6 @@ interface CarouselProps
     label:    string;
 }
 
-// Carrusel horizontal con scroll-snap nativo y flechas (sin puntos de paginación).
-// El desplazamiento lo hace el navegador: funciona con touch, trackpad y teclado.
 const Carousel = ({children, label}: CarouselProps) =>
 {
     const trackRef = useRef<HTMLDivElement>(null);

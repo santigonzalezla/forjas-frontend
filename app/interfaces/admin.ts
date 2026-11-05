@@ -1,4 +1,3 @@
-// Tipos del panel admin: reflejan las respuestas del backend Nest
 
 export enum UserRole
 {
@@ -34,8 +33,6 @@ export const PRODUCT_TYPE_LABELS: Record<ApiProductType, string> = {
     QUOTE:        'A medida (cotización)',
 };
 
-// ─── Sesión ────────────────────────────────────────────────────────────────────
-
 export interface SessionUser
 {
     id:        string;
@@ -44,8 +41,6 @@ export interface SessionUser
     lastName:  string;
     role:      UserRole;
 }
-
-// ─── Catálogo ──────────────────────────────────────────────────────────────────
 
 export interface ApiCategory
 {
@@ -126,8 +121,6 @@ export interface DashboardSummary
     newQuotes:      number;
 }
 
-// ─── Proyectos ─────────────────────────────────────────────────────────────────
-
 export type ProjectImageRole = 'GALLERY' | 'BEFORE' | 'AFTER';
 
 export const PROJECT_IMAGE_ROLE_LABELS: Record<ProjectImageRole, string> = {
@@ -159,8 +152,6 @@ export interface ApiProject
     updatedAt:   string;
 }
 
-// ─── Solicitudes ───────────────────────────────────────────────────────────────
-
 export type QuoteKind   = 'CONTACT' | 'QUOTE' | 'DESIGN';
 export type QuoteStatus = 'NEW' | 'IN_PROGRESS' | 'QUOTED' | 'WON' | 'LOST' | 'ARCHIVED';
 
@@ -179,7 +170,6 @@ export const QUOTE_STATUS_LABELS: Record<QuoteStatus, string> = {
     ARCHIVED:    'Archivada',
 };
 
-// Color de la etiqueta de estado en el panel
 export const QUOTE_STATUS_TONE: Record<QuoteStatus, 'success' | 'neutral' | 'warning' | 'muted' | 'danger'> = {
     NEW:         'neutral',
     IN_PROGRESS: 'warning',
@@ -212,8 +202,6 @@ export interface ApiQuote
     attachments:   {id: string; url: string; width: number; height: number}[];
     createdAt:     string;
 }
-
-// ─── Tarifas del configurador ─────────────────────────────────────────────────
 
 export interface ApiPricing
 {

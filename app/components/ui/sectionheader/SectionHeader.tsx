@@ -10,8 +10,6 @@ interface SectionHeaderProps
     id?:          string;
 }
 
-// Encabezado de sección: título + descripción opcional + enlace a la derecha.
-// Sin etiquetas pequeñas en mayúsculas encima del título (regla de diseño).
 const SectionHeader = ({title, description, action, id}: SectionHeaderProps) =>
 {
     return (

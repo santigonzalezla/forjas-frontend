@@ -11,11 +11,10 @@ interface RosetteSceneProps
 {
     finish:   FinishId;
     parts:    RosetteParts;
-    forgeKey: number; // al cambiar, la pieza se vuelve a forjar desde cero
+    forgeKey: number;
     onReady?: () => void;
 }
 
-// Grosor de cada tipo de barra, como el calibre real de la varilla
 const RADIUS: Record<RosettePath['kind'], number> = {
     ring:    0.055,
     bar:     0.03,
@@ -25,18 +24,17 @@ const RADIUS: Record<RosettePath['kind'], number> = {
 };
 
 const HOT_COLOR    = new Color('#ff5a14');
-const FINISH_COLOR = new Color(); // auxiliar reutilizable para interpolar el color del acabado
-const FORGE_TIME   = 2.2; // segundos que tarda en armarse la pieza
+const FINISH_COLOR = new Color();
+const FORGE_TIME   = 2.2;
 const COOLING_RATE = 0.55;
 
 const toVectors = (points: [number, number][]) => points.map(([x, y]) => new Vector3(x, y, 0));
 
-// ─── Grupo que aparece y desaparece escalando ──────────────────────────────
 interface PartProps
 {
     visible:   boolean;
     children:  ReactNode;
-    progress?: RefObject<number>; // si se pasa, espera a que el armado supere el 75 %
+    progress?: RefObject<number>;
 }
 
 const Part = ({visible, children, progress}: PartProps) =>
@@ -56,14 +54,12 @@ const Part = ({visible, children, progress}: PartProps) =>
     return <group ref={ref}>{children}</group>;
 };
 
-// ─── Roseta forjada ────────────────────────────────────────────────────────
 const Rosette = ({finish, parts, forgeKey}: Omit<RosetteSceneProps, 'onReady'>) =>
 {
     const spin     = useRef<Group>(null);
-    const progress = useRef(0); // 0..1, avance del armado
-    const heat     = useRef(1);  // 1 = al rojo vivo, 0 = frío
+    const progress = useRef(0);
+    const heat     = useRef(1);
 
-    // Un solo material compartido: cambiar el acabado o el calor es una sola escritura
     const material = useMemo(() => new MeshStandardMaterial({emissive: HOT_COLOR}), []);
 
     const {base, scrolls, diamonds, collars} = useMemo(() =>
@@ -92,22 +88,18 @@ const Rosette = ({finish, parts, forgeKey}: Omit<RosetteSceneProps, 'onReady'>) 
         };
     }, []);
 
-    // Los meshes de barras, en el orden en que se forjan. Las mutaciones por cuadro
-    // (drawRange, material) se hacen a través de estos refs, no sobre valores de hooks.
     const tubeMeshes = useRef<Mesh[]>([]);
     const tubeRef    = (index: number) => (mesh: Mesh | null) =>
     {
         if (mesh) tubeMeshes.current[index] = mesh;
     };
 
-    // Volver a forjar: reinicia el armado y el calor
     useEffect(() =>
     {
         progress.current = 0;
         heat.current     = 1;
     }, [forgeKey]);
 
-    // Al activar un ornamento, se calienta de nuevo un poco: "recién forjado"
     useEffect(() =>
     {
         heat.current = Math.max(heat.current, 0.7);
@@ -115,7 +107,6 @@ const Rosette = ({finish, parts, forgeKey}: Omit<RosetteSceneProps, 'onReady'>) 
 
     useFrame((_, delta) =>
     {
-        // Armado progresivo: cada barra se "estira" en orden, como si se forjara
         if (progress.current < 1)
         {
             progress.current = Math.min(1, progress.current + delta / FORGE_TIME);
@@ -131,7 +122,6 @@ const Rosette = ({finish, parts, forgeKey}: Omit<RosetteSceneProps, 'onReady'>) 
             });
         }
 
-        // El metal se enfría cuando la pieza ya está armada
         if (progress.current > 0.6) heat.current = Math.max(0, heat.current - delta * COOLING_RATE);
 
         const shared = tubeMeshes.current[0]?.material as MeshStandardMaterial | undefined;
@@ -145,11 +135,9 @@ const Rosette = ({finish, parts, forgeKey}: Omit<RosetteSceneProps, 'onReady'>) 
             shared.emissiveIntensity = heat.current * 2.6;
         }
 
-        // Giro lento en reposo; el arrastre lo maneja PresentationControls
         if (spin.current) spin.current.rotation.y += delta * 0.18;
     });
 
-    // Libera la memoria de la GPU al desmontar
     useEffect(() =>
     {
         const meshes = tubeMeshes.current;
@@ -187,9 +175,6 @@ const Rosette = ({finish, parts, forgeKey}: Omit<RosetteSceneProps, 'onReady'>) 
     );
 };
 
-// ─── Escena ────────────────────────────────────────────────────────────────
-// Iluminación con Lightformers locales (sin descargar HDR): luz blanca suave
-// arriba y de frente, borde cálido de fragua a la derecha y un toque frío a la izquierda.
 const RosetteScene = ({finish, parts, forgeKey, onReady}: RosetteSceneProps) =>
 {
     return (

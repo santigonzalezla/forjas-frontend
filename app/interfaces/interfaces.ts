@@ -1,7 +1,5 @@
 import type {ProductCategory, ProductType} from '@/app/interfaces/enums';
 
-// ─── Media ─────────────────────────────────────────────────────────────────────
-
 export interface MediaImage
 {
     src:    string;
@@ -9,8 +7,6 @@ export interface MediaImage
     width:  number;
     height: number;
 }
-
-// ─── Producto ──────────────────────────────────────────────────────────────────
 
 export interface Product
 {
@@ -20,11 +16,10 @@ export interface Product
     detail:   string;
     type:     ProductType;
     category: ProductCategory;
-    price:    number | null; // null cuando la pieza es a medida
+    price:    number | null;
     image:    MediaImage;
 }
 
-// Pieza del hero: una obra con los dos productos que se muestran en la columna
 export interface FeaturedPiece
 {
     id:       string;
@@ -33,7 +28,6 @@ export interface FeaturedPiece
     products: [Product, Product];
 }
 
-// Detalle completo para la página de producto
 export interface ProductDetail extends Product
 {
     description:    string | null;
@@ -70,8 +64,6 @@ export interface CatalogPage
     pages:    number;
 }
 
-// ─── Contenido ─────────────────────────────────────────────────────────────────
-
 export interface CraftStep
 {
     id:    string;
@@ -100,7 +92,6 @@ export interface ProjectDetail extends Project
     after:       MediaImage | null;
 }
 
-// Caso de restauración con fotos reales de antes y después
 export interface Restoration
 {
     id:          string;
@@ -109,8 +100,6 @@ export interface Restoration
     before:      MediaImage;
     after:       MediaImage;
 }
-
-// ─── Respuestas del backend ────────────────────────────────────────────────────
 
 export interface PaginatedResponse<T>
 {

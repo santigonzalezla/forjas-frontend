@@ -42,8 +42,6 @@ const todayIso = () =>
     return new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
 };
 
-// Solicitud de cotización en tres pasos. El estado vive aquí (y no en el DOM)
-// porque cada paso se desmonta al avanzar.
 const QuoteWizard = ({initialType, product}: QuoteWizardProps) =>
 {
     const [step,    setStep]    = useState(initialType ? 1 : 0);

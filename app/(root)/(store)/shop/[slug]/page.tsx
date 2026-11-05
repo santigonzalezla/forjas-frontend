@@ -3,7 +3,6 @@ import {Suspense} from 'react';
 import ProductView from '@/app/components/product/productview/ProductView';
 import {getProductBySlug, getProductSlugs} from '@/services/queries/catalog';
 
-// Los productos publicados se prerenderizan; uno nuevo se genera al primer visitante
 export async function generateStaticParams()
 {
     const slugs = await getProductSlugs();

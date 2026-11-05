@@ -1,14 +1,6 @@
 import {FINISHES, findFinish, type FinishId} from '@/lib/finishes';
 import {PALETTE, findColor, type PaletteId} from '@/lib/palette';
 
-// Catálogo de piezas del configurador 3D. Los id coinciden con el backend
-// (configurator.pricing.ts); las etiquetas en español son solo de la interfaz.
-//
-// Tres familias:
-// - Ornamentación: se diseña por medidas (ancho × alto), estilo y motivos (o corte láser).
-// - Muebles y Decoración e iluminación: se elige un tamaño, el patrón de pintura y los colores.
-// Agregar una pieza = sumar su definición aquí y su geometría (lib/ironwork o lib/furniture).
-
 export type Family       = 'ornamental' | 'furniture' | 'decor';
 export type PieceType    = 'gate' | 'door' | 'window' | 'railing' | 'nest' | 'stool' | 'armchair' | 'chandelier' | 'lantern' | 'bicycle' | 'tiered';
 export type Style        = 'minimal' | 'modern' | 'colonial' | 'baroque' | 'laser';
@@ -32,8 +24,8 @@ export interface Design
     size:      Size;
     pattern:   Pattern;
     colors:    {frame: PaletteId; accent: PaletteId};
-    cushion:   Cushion;  // tela del cojín (poltrona y sofá)
-    laserMotif: LaserMotif; // diseño de la lámina en corte láser
+    cushion:   Cushion;
+    laserMotif: LaserMotif;
 }
 
 interface Range
@@ -58,14 +50,14 @@ export interface PieceOption
     family:       Family;
     label:        string;
     hint:         string;
-    width:        Range;          // ornamentación: rango editable; muebles: lo fija el tamaño
+    width:        Range;
     height:       Range;
     widthLabel:   string;
-    sizes?:       SizeOption[];   // solo muebles
-    patterns?:    Pattern[];      // patrones de pintura disponibles para la parte pintada
-    accentLabel?: string;         // nombre de la parte pintada (tablero, asiento, tanque)
-    namedSizes?:  boolean;        // cada tamaño es un mueble distinto (poltrona, sofá…)
-    cushions?:    boolean;        // lleva cojines con tela a elegir
+    sizes?:       SizeOption[];
+    patterns?:    Pattern[];
+    accentLabel?: string;
+    namedSizes?:  boolean;
+    cushions?:    boolean;
 }
 
 const fixed = (value: number): Range => ({min: value, max: value, default: value});
@@ -97,13 +89,11 @@ export const PIECES: PieceOption[] = [
         id: 'armchair', family: 'furniture', label: 'Poltrona o sofá tanque', hint: 'Acero reciclado de tanque', width: fixed(58), height: fixed(88), widthLabel: 'Ancho',
         accentLabel: 'Tanque', patterns: ['solid'], namedSizes: true, cushions: true,
         sizes: [
-            // Poltrona: tanque vertical con espaldar recortado. Sofás: tanque horizontal abierto adelante
             {id: 'small',  label: 'Poltrona',       hint: 'Un puesto, tanque vertical', widthCm: 58,  heightCm: 88},
             {id: 'medium', label: 'Sofá 2 puestos', hint: '160 cm de largo',            widthCm: 160, heightCm: 66},
             {id: 'large',  label: 'Sofá 3 puestos', hint: '230 cm de largo',            widthCm: 230, heightCm: 66},
         ],
     },
-    // ─── Decoración e iluminación ───
     {
         id: 'chandelier', family: 'decor', label: 'Lámpara de rueda', hint: 'Colgante con brazos en voluta', width: fixed(80), height: fixed(100), widthLabel: 'Diámetro',
         accentLabel: 'Radios', patterns: ['solid'],
@@ -148,7 +138,6 @@ export const FAMILIES: {id: Family; label: string}[] = [
     {id: 'decor',      label: 'Decoración e iluminación'},
 ];
 
-// Pasos del panel según la familia de la pieza
 export const STEPS: Record<Family, string[]> = {
     ornamental: ['Pieza', 'Medidas', 'Estilo', 'Acabado', 'Enviar'],
     furniture:  ['Pieza', 'Tamaño', 'Diseño', 'Estructura', 'Enviar'],
@@ -163,7 +152,6 @@ export const STYLES: {id: Style; label: string; hint: string}[] = [
     {id: 'laser',    label: 'Corte láser', hint: 'Lámina calada con diseño'},
 ];
 
-// Diseños de la lámina calada. Follaje: el de las barandas que instaló el taller.
 export const LASER_MOTIFS: {id: LaserMotif; label: string; hint: string}[] = [
     {id: 'foliage',   label: 'Follaje',    hint: 'Ramas y hojas en gota'},
     {id: 'vines',     label: 'Enredadera', hint: 'Tallos en espiral con hojas'},
@@ -172,7 +160,6 @@ export const LASER_MOTIFS: {id: LaserMotif; label: string; hint: string}[] = [
     {id: 'waves',     label: 'Olas',       hint: 'Franjas onduladas'},
 ];
 
-// Motivos tomados de los trabajos del taller (portón colonial, rejas, barandas)
 export type OrnamentGroup = 'band' | 'bar' | 'finial' | 'detail';
 
 export const ORNAMENTS: {id: Ornament; label: string; group: OrnamentGroup; notFor?: PieceType[]}[] = [
@@ -210,7 +197,6 @@ export const FINISH_IDS: DesignFinish[] = [...FINISHES.map(finish => finish.id),
 
 export const findPiece = (type: PieceType): PieceOption => PIECES.find(piece => piece.id === type) ?? PIECES[0];
 export const familyOf  = (type: PieceType): Family => findPiece(type).family;
-// Muebles y decoración comparten fórmula: se eligen por tamaño, no por medidas
 export const isFurniture = (type: PieceType) => familyOf(type) !== 'ornamental';
 
 export const finishLabel = (design: Design): string =>
@@ -218,12 +204,10 @@ export const finishLabel = (design: Design): string =>
 
 const clamp = (value: number, {min, max}: Range) => Math.min(max, Math.max(min, Math.round(value)));
 
-// En corte láser la lámina reemplaza los barrotes: solo se conserva el remate en arco
 export const isOrnamentAllowed = (ornament: Ornament, type: PieceType, style?: Style) =>
     !isFurniture(type) && (style !== 'laser' || ornament === 'arch') && !ORNAMENTS.find(o => o.id === ornament)?.notFor?.includes(type);
 export const isExtraAllowed    = (extra: Extra, type: PieceType) => !!EXTRAS.find(e => e.id === extra)?.onlyFor?.includes(type);
 
-// Lanzas y bolas son remates excluyentes: el último elegido reemplaza al otro
 export const toggleOrnament = (list: Ornament[], ornament: Ornament): Ornament[] =>
 {
     if (list.includes(ornament)) return list.filter(o => o !== ornament);
@@ -232,8 +216,6 @@ export const toggleOrnament = (list: Ornament[], ornament: Ornament): Ornament[]
     return [...rest, ornament];
 };
 
-// Normaliza un diseño: medidas dentro del rango, tamaño y patrón válidos para la pieza
-// y sin opciones que no aplican
 export const normalizeDesign = (design: Design): Design =>
 {
     const piece = findPiece(design.type);
@@ -253,7 +235,6 @@ export const normalizeDesign = (design: Design): Design =>
     };
 };
 
-// Valores de partida de cada pieza, inspirados en las que ya vendió el taller
 const PRESETS: Partial<Record<PieceType, Partial<Design>>> = {
     nest:     {finish: 'negro',   pattern: 'stripes', colors: {frame: 'negro-mate', accent: 'rojo'}},
     stool:    {finish: 'pintado', pattern: 'art',     colors: {frame: 'celeste',    accent: 'morado'}},
@@ -284,17 +265,12 @@ export const defaultDesign = (type: PieceType = 'gate'): Design =>
     });
 };
 
-// Cambiar de tipo: dentro de la misma familia se conservan estilo, motivos y colores;
-// al pasar a otra familia se parte de los valores de la pieza nueva
 export const changeType = (design: Design, type: PieceType): Design =>
 {
     if (familyOf(design.type) !== familyOf(type)) return defaultDesign(type);
     const piece = findPiece(type);
     return normalizeDesign({...design, ...PRESETS[type], type, widthCm: piece.width.default, heightCm: piece.height.default, size: PRESETS[type]?.size ?? 'medium'});
 };
-
-// ─── Enlace compartible ──────────────────────────────────────────────────────
-// El diseño viaja en la URL para poder mandarlo por WhatsApp y abrirlo igual.
 
 type Params = Record<string, string | string[] | undefined>;
 
@@ -306,8 +282,6 @@ const listOf = <T extends string>(value: string | undefined, options: readonly T
 
 const PALETTE_IDS = PALETTE.map(color => color.id);
 
-// preset: valores del producto de la tienda del que viene el cliente (ver presetForSlug);
-// los parámetros explícitos de la URL siempre tienen prioridad
 export const parseDesign = (params: Params, fallbackType?: PieceType, preset: Partial<Design> = {}): Design =>
 {
     const type = oneOf(first(params.type), PIECES.map(p => p.id)) ?? fallbackType ?? 'gate';
@@ -334,7 +308,6 @@ export const parseDesign = (params: Params, fallbackType?: PieceType, preset: Pa
     });
 };
 
-// Solo se escriben en la URL los parámetros que aplican a la familia de la pieza
 export const designToQuery = (design: Design): string =>
 {
     const query = new URLSearchParams({type: design.type});
@@ -361,7 +334,6 @@ export const designToQuery = (design: Design): string =>
     return query.toString();
 };
 
-// Lo que se envía al backend: sin los campos que no aplican a la familia
 export const designPayload = (design: Design) =>
     isFurniture(design.type)
         ? {...design, ornaments: [], extras: [], laserMotif: undefined, cushion: findPiece(design.type).cushions ? design.cushion : undefined}
@@ -371,7 +343,6 @@ export const designPayload = (design: Design) =>
             colors:     design.finish === 'pintado' ? {frame: design.colors.frame} : undefined,
         };
 
-// Resumen legible para WhatsApp, la confirmación y el panel
 export const describeDesign = (design: Design): string =>
 {
     const piece = findPiece(design.type);
@@ -404,9 +375,7 @@ export const describeDesign = (design: Design): string =>
     ].filter(Boolean).join('; ');
 };
 
-// Pieza del configurador que corresponde a un producto de la tienda (?piece=slug)
 const SLUG_TO_PIECE: [RegExp, PieceType][] = [
-    // Primero las más específicas: "escalera de materas" no es una baranda
     [/lampara/,                    'chandelier'],
     [/farol/,                      'lantern'],
     [/matera-bicicleta|bicicleta/, 'bicycle'],
@@ -422,10 +391,7 @@ const SLUG_TO_PIECE: [RegExp, PieceType][] = [
 
 export const pieceForSlug = (slug: string): PieceType | undefined => SLUG_TO_PIECE.find(([pattern]) => pattern.test(slug))?.[1];
 
-// Variante del producto de la tienda: además del tipo de pieza, abre el configurador
-// con el tamaño, patrón o acabado de ese producto
 const SLUG_PRESETS: [RegExp, Partial<Design>][] = [
-    // Sofá y poltrona de la tienda: tanque rojo con cojines blancos (como en sus fotos)
     [/sofa/,               {size: 'medium', colors: {frame: 'negro-mate', accent: 'rojo'}, cushion: 'plain'}],
     [/poltrona/,           {size: 'small',  colors: {frame: 'negro-mate', accent: 'rojo'}, cushion: 'plain'}],
     [/inox|baranda-escalera/, {finish: 'inox', style: 'minimal', ornaments: []}],

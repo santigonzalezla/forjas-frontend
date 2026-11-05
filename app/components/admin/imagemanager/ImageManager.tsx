@@ -9,7 +9,6 @@ import {Grip, Trash, Upload} from '@/app/components/svg';
 import {useFetch} from '@/hooks/useFetch';
 import {useConfirm} from '@/hooks/useConfirm';
 import {useErrorToast} from '@/hooks/useErrorToast';
-// Lo mínimo que necesita el gestor: sirve para fotos de productos y de proyectos
 export interface ManagedImage
 {
     id:    string;
@@ -26,19 +25,17 @@ export interface ImageRole
 
 interface ImageManagerProps
 {
-    basePath:  string;          // 'product/<id>' o 'project/<id>'
-    itemName:  string;          // para el texto alternativo de las fotos
+    basePath:  string;
+    itemName:  string;
     images:    ManagedImage[];
-    onChange:  () => void;      // recarga el elemento después de un cambio
-    roles?:    ImageRole[];     // si se pasa, cada foto se sube con un rol (galería, antes, después)
+    onChange:  () => void;
+    roles?:    ImageRole[];
     hint?:     string;
 }
 
 const ACCEPTED = ['image/jpeg', 'image/png', 'image/webp'];
 const MAX_MB   = 10;
 
-// Fotos: subir arrastrando o con clic, reordenar arrastrando y borrar.
-// La primera foto (de galería, si hay roles) es la portada en la tienda.
 const ImageManager = ({basePath, itemName, images, onChange, roles, hint = 'La primera es la portada. Arrastra para cambiar el orden.'}: ImageManagerProps) =>
 {
     const [role, setRole] = useState(roles?.[0]?.value);
@@ -52,8 +49,6 @@ const ImageManager = ({basePath, itemName, images, onChange, roles, hint = 'La p
     const {execute: mutate, error: mutateError}  = useFetch<unknown>('', {immediate: false});
     const {confirm, confirmState, handleConfirm, handleCancel} = useConfirm();
 
-    // El orden local se reinicia cuando llegan imágenes nuevas del servidor
-    // (patrón "ajustar estado cuando cambia una prop", sin efecto)
     const [prevImages, setPrevImages] = useState(images);
     if (images !== prevImages)
     {
@@ -101,7 +96,6 @@ const ImageManager = ({basePath, itemName, images, onChange, roles, hint = 'La p
         if (e.dataTransfer.files.length > 0) uploadFiles(e.dataTransfer.files);
     };
 
-    // ─── Reordenar arrastrando ────────────────────────────────────────────────
     const handleSortOver = (e: DragEvent, overId: string) =>
     {
         e.preventDefault();

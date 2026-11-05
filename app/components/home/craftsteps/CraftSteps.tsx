@@ -10,8 +10,6 @@ interface CraftStepsProps
     steps: CraftStep[];
 }
 
-// Patrón StickyScrollReveal: el texto queda fijo a la izquierda y la etapa activa
-// cambia según la foto que está en el centro de la pantalla.
 const CraftSteps = ({steps}: CraftStepsProps) =>
 {
     const [active, setActive] = useState(0);

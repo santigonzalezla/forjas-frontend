@@ -14,13 +14,11 @@ interface FormSuccessProps
     whatsapp: string;
 }
 
-// Confirmación tras enviar una solicitud: número de radicado y salida rápida a WhatsApp
 const FormSuccess = ({title, text, numId, whatsapp}: FormSuccessProps) =>
 {
     const message = numId ? `${whatsapp} (solicitud #${numId})` : whatsapp;
     const ref     = useRef<HTMLDivElement>(null);
 
-    // El formulario desaparece al enviar: se lleva la vista y el foco a la confirmación
     useEffect(() =>
     {
         ref.current?.scrollIntoView({behavior: 'smooth', block: 'center'});

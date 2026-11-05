@@ -14,8 +14,6 @@ interface CompareProps
 
 const clamp = (x: number) => Math.min(100, Math.max(0, x));
 
-// Comparador antes/después (patrón Compare de Aceternity, en CSS Modules).
-// La posición vive en una variable CSS: arrastrar no provoca renders de React.
 const Compare = ({before, after}: CompareProps) =>
 {
     const rootRef   = useRef<HTMLDivElement>(null);
@@ -29,7 +27,6 @@ const Compare = ({before, after}: CompareProps) =>
         handleRef.current?.setAttribute('aria-valuenow', String(Math.round(position.current)));
     };
 
-    // Al entrar en pantalla, el divisor hace un pequeño barrido para invitar a arrastrarlo
     useEffect(() =>
     {
         const el = rootRef.current;

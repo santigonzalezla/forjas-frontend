@@ -1,12 +1,6 @@
 import {ProductCategory, ProductType} from '@/app/interfaces/enums';
 import type {CraftStep, FeaturedPiece, MediaImage, Product, Project, Restoration} from '@/app/interfaces/interfaces';
 
-// Datos locales mientras se construye el backend. Las fotos son trabajos reales
-// tomados del sitio Wix de Forjas.
-//
-// IMPORTANTE: los precios son DE EJEMPLO. Reemplazar por la lista real del cliente
-// antes de publicar. price: null = pieza a medida (se cotiza).
-
 const img = (file: string, alt: string, width: number, height: number): MediaImage => ({
     src: `/img/${file}.webp`,
     alt,
@@ -100,7 +94,6 @@ export const MOCK_CRAFT_STEPS: CraftStep[] = [
     },
 ];
 
-// Pares recortados de los collages del Wix. Reemplazar por fotos originales del cliente.
 export const MOCK_RESTORATIONS: Restoration[] = [
     {
         id:          'silla-comedor',

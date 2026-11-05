@@ -13,7 +13,6 @@ export const metadata: Metadata = {
     description: `Escríbenos por WhatsApp al ${WHATSAPP_DISPLAY} o visítanos en ${ADDRESS}.`,
 };
 
-// Embed público de Google Maps (no requiere API key)
 const MAP_SRC = `https://www.google.com/maps?q=${encodeURIComponent(ADDRESS)}&z=17&output=embed`;
 
 export default function ContactPage()

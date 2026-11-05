@@ -1,8 +1,5 @@
 'use client';
 
-// Basado en el useFetch de LegalDocs: único punto de llamadas al backend desde el
-// cliente (carrito, checkout, cotizaciones, cuenta y panel /admin).
-
 import {useCallback, useEffect, useRef, useState} from 'react';
 import {toast} from 'sonner';
 import {useAuth} from '@/context/AuthContext';
@@ -16,7 +13,7 @@ export interface UseFetchOptions
     immediate?:    boolean;
     responseType?: 'json' | 'blob';
     isFormData?:   boolean;
-    requiresAuth?: boolean; // por defecto true: la carga inicial espera a tener access token
+    requiresAuth?: boolean;
 }
 
 export interface UseFetchResult<T>
@@ -39,8 +36,6 @@ export function useFetch<T = unknown>(url: string, options: UseFetchOptions = {}
 
     const {accessToken, logout, refreshAccessToken, isHydrated} = useAuth();
 
-    // Las opciones viven en un ref: así execute no cambia de identidad en cada render
-    // (en LegalDocs se resolvía serializando body/headers dentro de un useMemo).
     const optionsRef = useRef(options);
     useEffect(() =>
     {
@@ -69,8 +64,6 @@ export function useFetch<T = unknown>(url: string, options: UseFetchOptions = {}
             const fetchOptions: RequestInit = {
                 method:  merged.method ?? 'GET',
                 headers,
-                // API autenticada: nunca servir desde la caché del navegador (Safari
-                // cacheaba GET de forma heurística y las listas no se refrescaban).
                 cache:   'no-store',
             };
 
@@ -86,7 +79,6 @@ export function useFetch<T = unknown>(url: string, options: UseFetchOptions = {}
         {
             let response = await doRequest(accessToken);
 
-            // Access token vencido: se renueva con la cookie httpOnly y se reintenta una vez
             if (response.status === 401 && accessToken)
             {
                 const newToken = await refreshAccessToken();
@@ -156,9 +148,7 @@ export function useFetch<T = unknown>(url: string, options: UseFetchOptions = {}
     useEffect(() =>
     {
         if (!immediate || !isHydrated) return;
-        // Sin sesión no se piden datos protegidos (evita 401 mientras el guard redirige)
         if (requiresAuth && !accessToken) return;
-        // Sincroniza con un sistema externo (la API): es el uso legítimo de un efecto.
         // eslint-disable-next-line react-hooks/set-state-in-effect
         execute();
     }, [execute, immediate, isHydrated, requiresAuth, accessToken]);

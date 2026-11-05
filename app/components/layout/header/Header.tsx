@@ -21,10 +21,9 @@ interface NavLinksProps
 {
     linkClass: string;
     onNavigate?: () => void;
-    pathname?: string; // sin ruta (durante el prerender) ningún enlace se marca activo
+    pathname?: string;
 }
 
-// La sección actual queda marcada: /shop/mesa-nido sigue siendo "Tienda"
 const NavLinks = ({linkClass, onNavigate, pathname}: NavLinksProps) =>
     NAV_LINKS.map(link =>
     {
@@ -36,7 +35,6 @@ const NavLinks = ({linkClass, onNavigate, pathname}: NavLinksProps) =>
         );
     });
 
-// usePathname depende de la URL: va dentro de Suspense para no bloquear el prerender
 const ActiveNavLinks = (props: Omit<NavLinksProps, 'pathname'>) => <NavLinks {...props} pathname={usePathname()} />;
 
 const NavList = (props: Omit<NavLinksProps, 'pathname'>) => (
@@ -59,7 +57,6 @@ const Header = () =>
         return () => window.removeEventListener('scroll', onScroll);
     }, []);
 
-    // Bloquea el scroll del fondo mientras el menú móvil está abierto
     useEffect(() =>
     {
         document.body.style.overflow = menuOpen ? 'hidden' : '';

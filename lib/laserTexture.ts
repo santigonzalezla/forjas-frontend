@@ -1,14 +1,6 @@
 import {CanvasTexture, LinearFilter, RepeatWrapping} from 'three';
 import type {LaserMotif} from '@/lib/configurator';
 
-// Diseños de corte láser como mapa de transparencia: blanco = lámina, negro = calado.
-// Son mosaicos que se repiten sin costura (cada figura se dibuja también desplazada
-// un mosaico en cada dirección), así la lámina puede tener cualquier medida.
-//
-// Follaje: ramas curvas con hojas en gota, como las barandas instaladas por el taller.
-
-// Metros de lámina que cubre un mosaico, según el diseño: la enredadera es amplia para
-// que no se note la repetición
 export const LASER_TILES: Record<LaserMotif, number> = {foliage: 0.75, vines: 1.3, lattice: 0.8, geometric: 0.75, waves: 0.75};
 
 const SIZE = 1024;
@@ -21,7 +13,6 @@ const seeded = (seed: number) => () =>
     return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
 };
 
-// Dibuja una figura en sus nueve posiciones del mosaico para que no se corte en los bordes
 const tiled = (draw: (dx: number, dy: number) => void) =>
 {
     for (const dx of [-SIZE, 0, SIZE])
@@ -29,7 +20,6 @@ const tiled = (draw: (dx: number, dy: number) => void) =>
             draw(dx, dy);
 };
 
-// Hoja en gota: punta hacia la rama y bulbo redondo afuera, con una leve curva
 const drop = (ctx: CanvasRenderingContext2D, x: number, y: number, angle: number, length: number, width: number, bend: number) =>
 {
     ctx.save();
@@ -50,8 +40,6 @@ const drawFoliage = (ctx: CanvasRenderingContext2D) =>
 {
     const random = seeded(1997);
 
-    // Cada gota ocupa un círculo aproximado; ninguna puede tocar a otra (distancia
-    // medida sobre el mosaico, que se repite) para que siempre quede una vena de lámina
     const placed: {x: number; y: number; r: number}[] = [];
     const vein = SIZE * 0.022;
     const wrap = (d: number) => Math.min(Math.abs(d), SIZE - Math.abs(d));
@@ -60,7 +48,6 @@ const drawFoliage = (ctx: CanvasRenderingContext2D) =>
 
     const place = (x: number, y: number, angle: number, length: number, bend: number) =>
     {
-        // Si no cabe, se intenta más pequeña antes de descartarla
         for (const scale of [1, 0.8, 0.62])
         {
             const l  = length * scale;
@@ -74,7 +61,6 @@ const drawFoliage = (ctx: CanvasRenderingContext2D) =>
         }
     };
 
-    // Ramas que suben en diagonal y se curvan; de cada una salen gotas a ambos lados
     const branches = [
         {x: 0.05, y: 1.05, angle: -1.05, length: 1.05, sway: 0.18},
         {x: 0.62, y: 1.08, angle: -1.95, length: 1.0,  sway: -0.16},
@@ -96,18 +82,16 @@ const drawFoliage = (ctx: CanvasRenderingContext2D) =>
             const size  = (1 - t * 0.45) * SIZE * (0.24 + random() * 0.05);
             const side  = k % 2 === 0 ? 1 : -1;
             const angle = dir + side * (0.6 + random() * 0.35);
-            const gap   = SIZE * 0.02; // vena entre la rama y la gota
+            const gap   = SIZE * 0.02;
 
             place(px + Math.cos(angle) * gap, py + Math.sin(angle) * gap, angle, size, side * size * 0.12);
         }
     }
 
-    // Gotas sueltas que llenan los huecos que quedaron
     for (let i = 0; i < 60; i++)
         place(random() * SIZE, random() * SIZE, random() * Math.PI * 2, SIZE * (0.1 + random() * 0.08), SIZE * 0.012);
 };
 
-// Hoja almendrada al final de un tallito
 const leaf = (ctx: CanvasRenderingContext2D, x: number, y: number, angle: number, length: number) =>
 {
     ctx.save();
@@ -121,9 +105,6 @@ const leaf = (ctx: CanvasRenderingContext2D, x: number, y: number, angle: number
     ctx.restore();
 };
 
-// Enredadera (como el portón calado del taller): tallos delgados que serpentean y se
-// enrollan en espiral, con hojas almendradas a lado y lado. El calado son los tallos
-// y las hojas; la lámina es el fondo.
 const drawVines = (ctx: CanvasRenderingContext2D) =>
 {
     const random = seeded(2016);
@@ -141,7 +122,6 @@ const drawVines = (ctx: CanvasRenderingContext2D) =>
 
         for (let i = 0; i < steps; i++)
         {
-            // Curvatura que cambia de sentido de vez en cuando: el tallo serpentea
             if (i % 16 === 0) turn = (random() < 0.5 ? -1 : 1) * (0.035 + random() * 0.05);
             a += turn;
             x += Math.cos(a) * stepLength;
@@ -149,7 +129,6 @@ const drawVines = (ctx: CanvasRenderingContext2D) =>
             points.push([x, y]);
         }
 
-        // Remate en espiral al final del tallo
         const curlDir = turn >= 0 ? 1 : -1;
         let r = SIZE * 0.06;
         for (let i = 0; i < 34; i++)
@@ -169,7 +148,6 @@ const drawVines = (ctx: CanvasRenderingContext2D) =>
             ctx.stroke();
         });
 
-        // Hojas en pares alternados a lo largo del tallo, y algún brote secundario
         for (let i = 5; i < steps; i += 6)
         {
             const [px, py] = points[i];
@@ -189,7 +167,6 @@ const drawVines = (ctx: CanvasRenderingContext2D) =>
         vine(random() * SIZE, random() * SIZE, random() * Math.PI * 2, 60 + Math.floor(random() * 40), SIZE * 0.009, 1);
 };
 
-// Celosía árabe: tréboles de cuatro hojas en cuadrícula; la lámina forma la trama
 const drawLattice = (ctx: CanvasRenderingContext2D) =>
 {
     const cells = 5;
@@ -213,7 +190,6 @@ const drawLattice = (ctx: CanvasRenderingContext2D) =>
         for (let col = 0; col <= cells; col++)
         {
             quatrefoil(col * step + step / 2, row * step + step / 2);
-            // Rombo pequeño en cada cruce de la trama
             const x = col * step;
             const y = row * step;
             const d = step * 0.07;
@@ -237,7 +213,6 @@ const drawGeometric = (ctx: CanvasRenderingContext2D) =>
             const cx = col * step + step / 2;
             const cy = row * step + step / 2;
             const r  = step * 0.36;
-            // Rombo grande calado
             ctx.beginPath();
             ctx.moveTo(cx, cy - r);
             ctx.lineTo(cx + r, cy);
@@ -245,12 +220,10 @@ const drawGeometric = (ctx: CanvasRenderingContext2D) =>
             ctx.lineTo(cx - r, cy);
             ctx.closePath();
             ctx.fill();
-            // Cuadro pequeño en la esquina entre rombos
             const q = step * 0.09;
             ctx.fillRect(col * step - q, row * step - q, q * 2, q * 2);
         }
     }
-    // Esquinas del mosaico (para que el borde repita igual)
     const q = step * 0.09;
     for (const x of [SIZE]) for (let row = 0; row <= 6; row++) ctx.fillRect(x - q, row * step - q, q * 2, q * 2);
     for (let col = 0; col <= 6; col++) ctx.fillRect(col * step - q, SIZE - q, q * 2, q * 2);

@@ -6,7 +6,7 @@ import type {Service} from '@/lib/content/services';
 interface ServiceChapterProps
 {
     service: Service;
-    flip:    boolean; // alterna el lado de la foto
+    flip:    boolean;
 }
 
 const ServiceChapter = ({service, flip}: ServiceChapterProps) =>

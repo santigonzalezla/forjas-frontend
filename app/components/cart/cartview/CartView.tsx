@@ -12,7 +12,6 @@ import {formatCOP} from '@/lib/format';
 import {buildWhatsAppLink} from '@/lib/whatsapp';
 import {hydrationStore} from '@/lib/localStore';
 
-// Mensaje del pedido para WhatsApp mientras se habilita el pago en línea
 const buildOrderMessage = (items: CartItem[], subtotal: number, note: string): string =>
 {
     const lines = items.map(item => `• ${item.quantity} × ${item.name} — ${formatCOP(item.price * item.quantity)}`);
@@ -33,7 +32,6 @@ const CartView = () =>
     const {items, count, subtotal, removeItem, setQuantity} = useCart();
     const [note, setNote] = useState('');
 
-    // El carrito vive en localStorage: antes de hidratar no se sabe si está vacío
     const hydrated = useSyncExternalStore(hydrationStore.subscribe, hydrationStore.getSnapshot, hydrationStore.getServerSnapshot);
 
     if (!hydrated) return <div className={`container ${styles.page}`} aria-busy="true" />;

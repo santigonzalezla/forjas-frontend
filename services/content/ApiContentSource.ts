@@ -9,7 +9,6 @@ const FALLBACK_IMAGE: MediaImage = {src: '/brand/logo-color.png', alt: 'Forjas �
 
 const toImage = (image: ApiProjectImage): MediaImage => ({src: image.url, alt: image.alt, width: image.width, height: image.height});
 
-// Portada: la primera foto de galería; si es una restauración, la de "después"
 const coverOf = (project: ApiProject): MediaImage =>
 {
     const cover = project.images.find(i => i.role === 'GALLERY') ?? project.images.find(i => i.role === 'AFTER') ?? project.images[0];
@@ -40,7 +39,6 @@ const toProjectDetail = (project: ApiProject): ProjectDetail =>
     };
 };
 
-// Proyectos y restauraciones vienen del backend; los pasos del oficio son texto fijo
 export class ApiContentSource implements IContentSource
 {
     constructor(private readonly http: IHttpClient) {}

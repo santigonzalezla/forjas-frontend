@@ -4,8 +4,6 @@ import {createContext, useCallback, useContext, useSyncExternalStore, type React
 import type {Product} from '@/app/interfaces/interfaces';
 import {createLocalStore} from '@/lib/localStore';
 
-// ─── Types ─────────────────────────────────────────────────────────────────────
-
 export interface CartItem
 {
     productId: string;
@@ -27,22 +25,17 @@ interface CartContextType
     clear:      () => void;
 }
 
-// ─── Store ─────────────────────────────────────────────────────────────────────
-
 const EMPTY: CartItem[] = [];
 const cartStore         = createLocalStore<CartItem[]>('fj_cart', EMPTY);
 
 const CartContext = createContext<CartContextType | null>(null);
 
-// El carrito vive en el navegador para permitir compra como invitado. Los precios
-// que guarda son solo para mostrar: el backend recalcula el total al crear el pedido.
 export function CartProvider({children}: {children: ReactNode})
 {
     const items = useSyncExternalStore(cartStore.subscribe, cartStore.getSnapshot, cartStore.getServerSnapshot);
 
     const addItem = useCallback((product: Product, quantity = 1) =>
     {
-        // Las piezas a medida no tienen precio: se cotizan, no van al carrito
         if (product.price === null) return;
 
         const current  = cartStore.getSnapshot();
@@ -67,7 +60,6 @@ export function CartProvider({children}: {children: ReactNode})
         cartStore.set(cartStore.getSnapshot().filter(item => item.productId !== productId));
     }, []);
 
-    // Cantidad entre 1 y 20 por pieza (son piezas hechas a mano, no inventario masivo)
     const setQuantity = useCallback((productId: string, quantity: number) =>
     {
         const safe = Math.min(20, Math.max(1, Math.round(quantity)));

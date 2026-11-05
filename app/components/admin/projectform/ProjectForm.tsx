@@ -10,14 +10,13 @@ import type {ApiProject} from '@/app/interfaces/admin';
 interface ProjectFormProps
 {
     initial?:  ApiProject;
-    types:     string[]; // tipos ya usados, como sugerencias
+    types:     string[];
     saving:    boolean;
     onSubmit:  (payload: Record<string, unknown>) => void;
 }
 
 const toNumberOrNull = (value: string): number | null => (value.trim() === '' ? null : Number(value.replace(/\D/g, '')));
 
-// Formulario de proyecto del portafolio. El slug lo genera el backend a partir del título.
 const ProjectForm = ({initial, types, saving, onSubmit}: ProjectFormProps) =>
 {
     const [values, setValues] = useState(() => ({

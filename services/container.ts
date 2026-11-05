@@ -7,8 +7,6 @@ import {ContentService} from '@/services/content/ContentService';
 import {MockContentSource} from '@/services/content/MockContentSource';
 import {ApiContentSource} from '@/services/content/ApiContentSource';
 
-// Raíz de composición: el único lugar que decide qué implementación usar.
-// CATALOG_SOURCE / CONTENT_SOURCE = api conectan cada parte al backend sin tocar componentes.
 const http = new HttpClient(API_BASE_URL);
 
 export const catalogService = new CatalogService(

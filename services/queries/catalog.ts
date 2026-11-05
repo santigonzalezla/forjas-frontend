@@ -2,9 +2,6 @@ import {cacheLife, cacheTag} from 'next/cache';
 import {catalogService} from '@/services/container';
 import type {CatalogFilters, CatalogPage, CategoryOption, FeaturedPiece, Product, ProductDetail} from '@/app/interfaces/interfaces';
 
-// Lecturas cacheadas. 'use cache' no admite métodos de clase, por eso la caché vive
-// aquí y la lógica en los servicios. El backend invalida con revalidateTag('products').
-
 export async function getFeaturedPieces(): Promise<FeaturedPiece[]>
 {
     'use cache';
@@ -32,7 +29,6 @@ export async function getCategories(): Promise<CategoryOption[]>
     return catalogService.getCategories();
 }
 
-// Los filtros son argumentos: cada combinación queda en su propia entrada de caché
 export async function listProducts(filters: CatalogFilters): Promise<CatalogPage>
 {
     'use cache';

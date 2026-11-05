@@ -14,11 +14,8 @@ const STORAGE_KEY = 'theme';
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-// Script que corre en <head> antes del primer pintado: aplica el tema guardado o el
-// del sistema. Evita el parpadeo que tendría leer localStorage después de hidratar.
 export const THEME_INIT_SCRIPT = `(function(){var d=document.documentElement;d.classList.add('js');try{var t=localStorage.getItem('${STORAGE_KEY}');if(!t){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}d.setAttribute('data-theme',t)}catch(e){}})()`;
 
-// El atributo data-theme de <html> es la única fuente de verdad del tema
 const subscribe = (listener: () => void) =>
 {
     const observer = new MutationObserver(listener);
@@ -44,7 +41,6 @@ export function ThemeProvider({children}: {children: ReactNode})
         }
         catch
         {
-            // Modo privado o almacenamiento bloqueado: el tema dura solo la sesión
         }
     }, []);
 

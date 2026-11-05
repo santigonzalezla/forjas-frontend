@@ -15,7 +15,6 @@ const ProjectDetail = async ({params}: {params: Promise<{slug: string}>}) =>
     const project = await getProjectBySlug(slug);
     if (!project) notFound();
 
-    // Vecinos en el mismo orden de la página de proyectos
     const all   = await getProjects();
     const index = all.findIndex(p => p.slug === project.slug);
     const prev  = index > 0 ? all[index - 1] : null;

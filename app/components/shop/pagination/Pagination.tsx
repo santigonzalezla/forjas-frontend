@@ -5,7 +5,6 @@ import {useSearchParams} from 'next/navigation';
 import styles from './pagination.module.css';
 import {ArrowLeft, ArrowRight} from '@/app/components/svg';
 
-// Conserva los filtros actuales y solo cambia ?page=
 const Pagination = ({page, pages}: {page: number; pages: number}) =>
 {
     const searchParams = useSearchParams();

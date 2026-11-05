@@ -3,7 +3,6 @@ import styles from './craftmarquee.module.css';
 const CRAFTS = ['Portones', 'Rejas', 'Barandas', 'Muebles', 'Lámparas', 'Restauración', 'Acero inoxidable', 'Línea reciclada'];
 const SPACES = ['Fachadas', 'Terrazas', 'Escaleras', 'Patios', 'Balcones', 'Negocios', 'Jardines', 'Salas'];
 
-// Pequeña roseta como separador, en lugar de puntos o íconos genéricos
 const Rosette = () => (
     <svg viewBox="-12 -12 24 24" className={styles.glyph} aria-hidden>
         <circle r="10" />
@@ -14,7 +13,6 @@ const Rosette = () => (
 
 const Row = ({items, reverse = false, muted = false}: {items: string[]; reverse?: boolean; muted?: boolean}) =>
 {
-    // El contenido se duplica para que el desplazamiento sea continuo
     const loop = [...items, ...items];
 
     return (
@@ -31,7 +29,6 @@ const Row = ({items, reverse = false, muted = false}: {items: string[]; reverse?
     );
 };
 
-// Franja en movimiento con los oficios y los espacios donde vive el hierro de Forjas
 const CraftMarquee = () =>
 {
     return (

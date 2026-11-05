@@ -1,8 +1,5 @@
 import type {MediaImage} from '@/app/interfaces/interfaces';
 
-// Servicios de Forjas tal como los describe el propio taller (sitio Wix e Instagram).
-// Texto fijo: cambia muy poco, por eso no vive en el panel.
-
 export interface Service
 {
     id:      string;

@@ -22,14 +22,12 @@ import {formatDateTime, formatDay} from '@/lib/dates';
 import {defaultDesign, describeDesign, designToQuery, normalizeDesign, type Design} from '@/lib/configurator';
 import {QUOTE_KIND_LABELS, QUOTE_STATUS_LABELS, QUOTE_STATUS_TONE, UserRole, type ApiQuote, type QuoteStatus} from '@/app/interfaces/admin';
 
-// El celular puede venir con espacios o sin indicativo: wa.me necesita 57 + número
 const toWhatsAppNumber = (phone: string) =>
 {
     const digits = phone.replace(/\D/g, '');
     return digits.length === 10 ? `57${digits}` : digits;
 };
 
-// Estado y notas: se editan juntos y se guardan con un solo botón
 const FollowUp = ({quote, onSaved}: {quote: ApiQuote; onSaved: () => void}) =>
 {
     const [status, setStatus] = useState<QuoteStatus>(quote.status);
@@ -77,7 +75,6 @@ function QuoteDetail()
     if (loadError) return <p className={styles.state}>No encontramos esta solicitud. <Link href="/admin/quotes">Volver a solicitudes</Link></p>;
     if (!quote) return <p className={styles.state}>Cargando…</p>;
 
-    // Las solicitudes viejas no traen tamaño, patrón ni colores: se completan con los valores de la pieza
     const stored = quote.design as unknown as (Partial<Design> & {type: Design['type']}) | null;
     const base   = stored ? defaultDesign(stored.type) : null;
     const design = stored && base ? normalizeDesign({...base, ...stored, colors: {...base.colors, ...stored.colors}}) : null;

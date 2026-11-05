@@ -3,8 +3,6 @@ import {NextResponse, type NextRequest} from 'next/server';
 
 const ALLOWED_TAGS = ['products', 'projects', 'content'];
 
-// El backend Nest llama este endpoint después de crear/editar productos o proyectos,
-// así el sitio público se actualiza sin redeploy.
 export async function POST(request: NextRequest)
 {
     const secret = request.headers.get('x-revalidate-secret');

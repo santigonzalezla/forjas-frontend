@@ -45,7 +45,6 @@ export default function FeaturedPiecesPage()
     const productList = products?.data ?? [];
     const findProduct = (id: string) => productList.find(p => p.id === id);
 
-    // La foto de la pieza se elige entre las fotos de sus dos productos
     const imageOptions = [findProduct(form.primaryProductId), findProduct(form.secondaryProductId)]
         .flatMap(product => product?.images ?? []);
 

@@ -8,8 +8,6 @@ interface CategoryNavProps
     active?:    string;
 }
 
-// Categorías como lista de texto (escritorio) o chips desplazables (móvil).
-// Cambiar de categoría reinicia la página y la búsqueda.
 const CategoryNav = ({categories, active}: CategoryNavProps) =>
 {
     return (

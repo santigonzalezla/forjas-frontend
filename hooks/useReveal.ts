@@ -3,20 +3,6 @@
 import {useEffect, type RefObject} from 'react';
 import {animate, onScroll, splitText, stagger} from 'animejs';
 
-// Animaciones ligadas al scroll para toda la página:
-// - [data-reveal]        aparece subiendo suavemente
-// - [data-reveal-words]  el título entra palabra por palabra
-// - [data-parallax]      la imagen se desplaza más lento que el scroll
-// El CSS global solo oculta [data-reveal] si <html> tiene .js; con movimiento
-// reducido todo se muestra de inmediato y sin desplazamientos.
-//
-// Con `rootRef` solo actúa dentro de ese elemento: necesario cuando el contenido llega
-// por streaming (Suspense), para no tocar el DOM antes de que ese bloque hidrate.
-//
-// Los elementos que React agrega después (p. ej. al cambiar de categoría en la tienda
-// sin recargar) se detectan con un MutationObserver y se animan igual; sin esto
-// quedaban ocultos para siempre.
-
 const SELECTOR = '[data-reveal], [data-reveal-words], [data-parallax]';
 
 type Cleanup = () => void;
@@ -68,7 +54,6 @@ const setupElement = (el: HTMLElement, reduced: boolean): Cleanup =>
     return () => animation.revert();
 };
 
-// El propio nodo y sus descendientes que llevan algún atributo de animación
 const collect = (node: Node): HTMLElement[] =>
 {
     if (!(node instanceof HTMLElement)) return [];
@@ -102,7 +87,6 @@ export function useReveal(rootRef?: RefObject<HTMLElement | null>)
             for (const mutation of mutations)
             {
                 mutation.removedNodes.forEach(node => collect(node).forEach(remove));
-                // Los nodos que agrega splitText no llevan atributos: no se reprocesan
                 mutation.addedNodes.forEach(node => collect(node).forEach(add));
             }
         });

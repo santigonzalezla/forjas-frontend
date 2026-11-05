@@ -103,7 +103,6 @@ function ProductsPage()
     );
 }
 
-// useSearchParams necesita Suspense (igual que en LegalDocs)
 export default function ProductsPageWrapper()
 {
     return (

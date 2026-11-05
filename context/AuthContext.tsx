@@ -5,23 +5,16 @@ import {API_BASE_URL} from '@/lib/constants';
 import {hydrationStore} from '@/lib/localStore';
 import type {SessionUser} from '@/app/interfaces/admin';
 
-// ─── Types ─────────────────────────────────────────────────────────────────────
-
 interface AuthContextType
 {
     accessToken:        string | null;
     user:               SessionUser | null;
     isAuthenticated:    boolean;
-    isHydrated:         boolean; // true cuando ya se intentó restaurar la sesión
-    login:              (email: string, password: string) => Promise<string | null>; // devuelve el error o null
+    isHydrated:         boolean;
+    login:              (email: string, password: string) => Promise<string | null>;
     logout:             () => Promise<void>;
     refreshAccessToken: () => Promise<string | null>;
 }
-
-// ─── Refresh compartido ────────────────────────────────────────────────────────
-// El refresh token rota en cada uso: dos llamadas simultáneas (StrictMode, varias
-// peticiones con 401 a la vez) usarían el mismo token y la segunda cerraría la sesión.
-// Por eso todas comparten la misma promesa mientras está en curso.
 
 let refreshInFlight: Promise<string | null> | null = null;
 
@@ -41,8 +34,6 @@ const fetchMe = async (token: string): Promise<SessionUser | null> =>
     return response.ok ? (await response.json()) as SessionUser : null;
 };
 
-// Marca sin datos sensibles que solo indica "hay una sesión abierta". Evita que cada
-// visitante de la tienda dispare un /auth/refresh inútil al cargar la página.
 const SESSION_HINT = 'fj_has_session';
 
 const hasSessionHint = (): boolean =>
@@ -62,24 +53,17 @@ const setSessionHint = (active: boolean): void =>
     }
     catch
     {
-        // Sin almacenamiento: la sesión igual funciona, solo se pierde la marca
     }
 };
 
-// ─── Context ───────────────────────────────────────────────────────────────────
-
 const AuthContext = createContext<AuthContextType | null>(null);
 
-// El access token vive solo en memoria y el refresh token en una cookie httpOnly que
-// JavaScript no puede leer. Al recargar, la sesión se restaura pidiendo un access
-// token nuevo con esa cookie.
 export function AuthProvider({children}: {children: ReactNode})
 {
     const [accessToken, setAccessToken] = useState<string | null>(null);
     const [user,        setUser]        = useState<SessionUser | null>(null);
     const [refreshDone, setRefreshDone] = useState(false);
 
-    // Sin marca de sesión no hay nada que restaurar: queda hidratado apenas monta
     const mounted    = useSyncExternalStore(hydrationStore.subscribe, hydrationStore.getSnapshot, hydrationStore.getServerSnapshot);
     const hasHint    = useSyncExternalStore(noopSubscribe, hasSessionHint, () => false);
     const isHydrated = mounted && (!hasHint || refreshDone);

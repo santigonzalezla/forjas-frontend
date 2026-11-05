@@ -8,8 +8,6 @@ export const metadata: Metadata = {
     description: 'Muebles, lámparas y decoración en hierro forjado hechos a mano en Valledupar. Envíos a todo Colombia.',
 };
 
-// Los filtros viven en la URL (?category=…&sort=…&q=…&page=…). Se leen dentro de
-// Suspense para que el encabezado y el esqueleto salgan en el HTML estático.
 export default function ShopPage({searchParams}: PageProps<'/shop'>)
 {
     return (

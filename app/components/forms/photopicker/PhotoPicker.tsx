@@ -19,8 +19,6 @@ interface PhotoPickerProps
     maxSizeMb?: number;
 }
 
-// Selector de fotos con arrastrar y soltar. Los límites coinciden con el backend
-// (5 fotos, 10 MB cada una). Las URL de vista previa se liberan al quitar o desmontar.
 const PhotoPicker = ({photos, onChange, max = 5, maxSizeMb = 10}: PhotoPickerProps) =>
 {
     const inputRef            = useRef<HTMLInputElement>(null);

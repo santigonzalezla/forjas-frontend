@@ -1,5 +1,3 @@
-// Contrato del cliente HTTP. Los servicios dependen de esta interfaz y no de fetch,
-// así se pueden probar con un doble y cambiar la implementación sin tocarlos.
 export interface RequestOptions
 {
     headers?:   Record<string, string>;

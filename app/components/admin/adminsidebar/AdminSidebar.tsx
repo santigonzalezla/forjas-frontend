@@ -30,7 +30,7 @@ interface NavListProps
 {
     isAdmin:   boolean;
     onNavigate: () => void;
-    pathname?: string; // sin ruta (durante el prerender) ningún enlace se marca activo
+    pathname?: string;
 }
 
 const NavList = ({isAdmin, onNavigate, pathname}: NavListProps) =>
@@ -50,7 +50,6 @@ const NavList = ({isAdmin, onNavigate, pathname}: NavListProps) =>
     );
 };
 
-// usePathname depende de la URL: va dentro de Suspense para no bloquear el prerender
 const ActiveNavList = (props: Omit<NavListProps, 'pathname'>) => <NavList {...props} pathname={usePathname()} />;
 
 const AdminSidebar = ({open, onClose}: AdminSidebarProps) =>

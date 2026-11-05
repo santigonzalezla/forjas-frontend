@@ -14,7 +14,6 @@ interface ConfirmModalProps
     onCancel:      () => void;
 }
 
-// Igual que el ConfirmModal de LegalDocs: se usa junto al hook useConfirm
 const ConfirmModal = ({title, message, confirmLabel = 'Eliminar', danger = true, onConfirm, onCancel}: ConfirmModalProps) =>
 {
     return (

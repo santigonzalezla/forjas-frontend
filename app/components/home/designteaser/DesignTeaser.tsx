@@ -12,9 +12,6 @@ const PART_OPTIONS: {key: keyof RosetteParts; label: string}[] = [
     {key: 'collars', label: 'Collarines'},
 ];
 
-// Probador del configurador (referencia ORYZO: una pieza, un enunciado).
-// La roseta del logo se forja frente al usuario y se puede girar, cambiar de
-// acabado y quitar o poner ornamentos: así se entiende qué hace el configurador.
 const DesignTeaser = () =>
 {
     const [finish,   setFinish]   = useState<FinishId>('negro');

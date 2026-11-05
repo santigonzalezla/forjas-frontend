@@ -1,9 +1,5 @@
 import {ADDRESS, CONTACT_EMAIL, PHONE_LANDLINE, WHATSAPP_DISPLAY} from '@/lib/constants';
 
-// BORRADOR de textos legales basados en la normativa colombiana citada en cada
-// documento. Deben ser revisados por un abogado antes de publicar el sitio.
-// Los datos entre corchetes los debe confirmar el cliente (no se inventan).
-
 export const LEGAL_ENTITY = {
     name:      'Forjas · Hierro Hecho Arte',
     legalName: '[Razón social por confirmar]',
@@ -35,8 +31,6 @@ export interface LegalDocumentContent
 const E = LEGAL_ENTITY;
 
 const CONTACT_LINE = `Correo ${E.email}, WhatsApp ${E.whatsapp}, teléfono ${E.phone}, o en el taller: ${E.address}.`;
-
-// ─── Política de tratamiento de datos personales ─────────────────────────────
 
 export const PRIVACY: LegalDocumentContent = {
     title: 'Política de tratamiento de datos personales',
@@ -132,8 +126,6 @@ export const PRIVACY: LegalDocumentContent = {
     ],
 };
 
-// ─── Términos y condiciones ──────────────────────────────────────────────────
-
 export const TERMS: LegalDocumentContent = {
     title: 'Términos y condiciones',
     intro: 'Condiciones para usar esta página, comprar piezas de la tienda y solicitar trabajos a medida, conforme al Estatuto del Consumidor (Ley 1480 de 2011) y a la Ley 527 de 1999 sobre comercio electrónico.',
@@ -196,8 +188,6 @@ export const TERMS: LegalDocumentContent = {
         },
     ],
 };
-
-// ─── Cambios, devoluciones y garantías ───────────────────────────────────────
 
 export const RETURNS: LegalDocumentContent = {
     title: 'Cambios, devoluciones y garantías',

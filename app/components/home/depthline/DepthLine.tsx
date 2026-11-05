@@ -16,17 +16,13 @@ interface DepthLineProps
     pieces: FeaturedPiece[];
 }
 
-// ─── Tabla de profundidad (inspirada en Maison Vell) ─────────────────────────
-// Una fila de piezas que se pierde en la distancia hacia la izquierda.
-// Siete paradas, de d = -1 (saliendo por la derecha) a d = 5 (llegando desde la bruma).
-// Valores en fracción del tamaño del escenario; se interpolan linealmente.
-const KX = [1.24, .72, .50, .355, .25, .165, .10];  // centro horizontal
-const KF = [1.10, .92, .84, .79, .755, .73, .71];   // línea del piso (borde inferior)
-const KH = [.98, .70, .46, .34, .26, .20, .15];     // alto de la tarjeta
-const KB = [6, 0, 1.5, 3.5, 7, 11, 16];             // desenfoque en px
-const KO = [0, 1, 1, 1, .85, .5, 0];                // opacidad (la que sale se desvanece)
+const KX = [1.24, .72, .50, .355, .25, .165, .10];
+const KF = [1.10, .92, .84, .79, .755, .73, .71];
+const KH = [.98, .70, .46, .34, .26, .20, .15];
+const KB = [6, 0, 1.5, 3.5, 7, 11, 16];
+const KO = [0, 1, 1, 1, .85, .5, 0];
 
-const CARD_RATIO   = 0.78;  // ancho/alto de las tarjetas de foto
+const CARD_RATIO   = 0.78;
 const MOBILE_BREAK = 820;
 
 const wrap  = (x: number, n: number) => ((x % n) + n) % n;
@@ -50,7 +46,6 @@ const DepthLine = ({pieces}: DepthLineProps) =>
     const total    = pieces.length;
     const products = pieces.flatMap(piece => piece.products);
 
-    // ─── Motor: una sola variable p controla escenario, riel y número ────────
     useEffect(() =>
     {
         const stage = stageRef.current;
@@ -73,7 +68,6 @@ const DepthLine = ({pieces}: DepthLineProps) =>
             isMobile = window.innerWidth <= MOBILE_BREAK;
             cardS    = isMobile ? 168 : rail.clientHeight / 3;
 
-            // Las tarjetas se maquetan una vez a tamaño máximo; luego solo cambia transform
             cardRefs.current.forEach(card =>
             {
                 if (!card) return;
@@ -115,7 +109,6 @@ const DepthLine = ({pieces}: DepthLineProps) =>
                 card.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0) scale(${s.toFixed(4)})`;
                 card.style.zIndex    = String(100 - Math.round(d * 10));
 
-                // El blur se divide por la escala para que se vea igual a cualquier profundidad
                 const blur    = mix(KB) / s;
                 const filter  = blur < 0.2 ? 'none' : `blur(${blur.toFixed(1)}px)`;
                 const opacity = mix(KO).toFixed(3);
@@ -132,7 +125,6 @@ const DepthLine = ({pieces}: DepthLineProps) =>
                 }
             });
 
-            // Riel infinito: cada pieza aporta dos productos, la primera queda arriba
             const track = cardS * railCardRefs.current.length;
             railCardRefs.current.forEach((card, i) =>
             {
@@ -144,7 +136,6 @@ const DepthLine = ({pieces}: DepthLineProps) =>
                     : `translate3d(0, ${offset.toFixed(1)}px, 0)`;
             });
 
-            // Número y nombre ruedan uno sobre otro
             const roll = wrap(p, total);
             [numberRef.current, nameRef.current].forEach(el =>
             {
@@ -161,7 +152,6 @@ const DepthLine = ({pieces}: DepthLineProps) =>
             }
         };
 
-        // ─── Bucle ───────────────────────────────────────────────────────────
         let mx = 0, my = 0, cx = 0, cy = 0;
 
         const tick = (now: number) =>
@@ -187,7 +177,6 @@ const DepthLine = ({pieces}: DepthLineProps) =>
             frame = requestAnimationFrame(tick);
         };
 
-        // ─── Interacción ─────────────────────────────────────────────────────
         let down = false, startX = 0, startTarget = 0, moved = 0;
         let wheelTimer: ReturnType<typeof setTimeout> | undefined;
         const pull = () => Math.max(150, W * 0.2);
@@ -228,7 +217,6 @@ const DepthLine = ({pieces}: DepthLineProps) =>
 
             if (moved < 6)
             {
-                // Clic sobre una pieza del fondo: la trae al frente
                 const hit = document.elementsFromPoint(e.clientX, e.clientY)
                     .find(el => (el as HTMLElement).dataset?.pieceIndex !== undefined) as HTMLElement | undefined;
 
@@ -243,7 +231,6 @@ const DepthLine = ({pieces}: DepthLineProps) =>
 
         const onWheel = (e: WheelEvent) =>
         {
-            // Solo el desplazamiento horizontal mueve la fila; el vertical sigue bajando la página
             if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
             e.preventDefault();
             target += clamp(e.deltaX, -120, 120) / 420;
@@ -288,7 +275,6 @@ const DepthLine = ({pieces}: DepthLineProps) =>
         };
     }, [total]);
 
-    // ─── Entrada con anime.js: palabras del titular y piezas desde la bruma ──
     useEffect(() =>
     {
         if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -412,8 +398,6 @@ const DepthLine = ({pieces}: DepthLineProps) =>
         </section>
     );
 };
-
-// ─── Tarjeta del riel ──────────────────────────────────────────────────────
 
 interface RailCardProps
 {

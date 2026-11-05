@@ -14,8 +14,6 @@ import {findPiece, pieceForSlug} from '@/lib/configurator';
 import {ProductType} from '@/app/interfaces/enums';
 import type {ProductDetail} from '@/app/interfaces/interfaces';
 
-// Acción principal según cómo se vende la pieza:
-// catálogo → carrito · configurable → diseñador 3D · a medida → cotización
 const ProductPurchase = ({product}: {product: ProductDetail}) =>
 {
     const {addItem}             = useCart();

@@ -21,8 +21,6 @@ interface CatalogToolbarProps
     sort:   CatalogSort;
 }
 
-// Búsqueda y orden actualizan la URL: el servidor vuelve a filtrar y el enlace se
-// puede compartir tal cual.
 const CatalogToolbar = ({total, search, sort}: CatalogToolbarProps) =>
 {
     const router       = useRouter();
@@ -37,11 +35,10 @@ const CatalogToolbar = ({total, search, sort}: CatalogToolbarProps) =>
     {
         const next = new URLSearchParams(searchParams.toString());
         Object.entries(changes).forEach(([key, value]) => (value ? next.set(key, value) : next.delete(key)));
-        next.delete('page'); // cualquier filtro nuevo vuelve a la primera página
+        next.delete('page');
         startTransition(() => router.replace(`${pathname}?${next.toString()}`, {scroll: false}));
     };
 
-    // El botón de búsqueda del header llega con #buscar: el campo queda listo para escribir
     const searchRef = useRef<HTMLInputElement>(null);
     useEffect(() =>
     {

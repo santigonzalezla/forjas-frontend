@@ -2,15 +2,8 @@ import {CanvasTexture, RepeatWrapping, SRGBColorSpace} from 'three';
 import {MIX, findColor, type PaletteId} from '@/lib/palette';
 import type {Pattern} from '@/lib/configurator';
 
-// Texturas pintadas para tableros, asientos y tanques, dibujadas en un <canvas>:
-// - solid:   un solo color
-// - stripes: tablillas de colores con junta oscura (mesas nido de colores)
-// - art:     manchas de color con contorno negro, pintadas a mano (butaco)
-// Se generan con una semilla fija: el mismo diseño siempre se ve igual.
-
 const SIZE = 512;
 
-// Generador pseudoaleatorio con semilla (mulberry32)
 const seeded = (seed: number) => () =>
 {
     seed = (seed + 0x6d2b79f5) | 0;
@@ -35,7 +28,6 @@ export const createPatternTexture = (pattern: Pattern, accent: PaletteId): Canva
 
     if (pattern === 'stripes')
     {
-        // Tablillas de ancho parejo, partidas en tramos de distinto color
         const rows = 8;
         const rowH = SIZE / rows;
         for (let r = 0; r < rows; r++)
@@ -61,7 +53,6 @@ export const createPatternTexture = (pattern: Pattern, accent: PaletteId): Canva
     }
     else if (pattern === 'art')
     {
-        // Manchas superpuestas con contorno, como vitral pintado a mano
         for (let i = 0; i < 16; i++)
         {
             ctx.beginPath();
@@ -80,8 +71,6 @@ export const createPatternTexture = (pattern: Pattern, accent: PaletteId): Canva
     return texture;
 };
 
-// Tela estampada para cojines: rombos de colores sobre fondo claro, como los cojines
-// de la poltrona morada
 export const createFabricTexture = (): CanvasTexture =>
 {
     const canvas  = document.createElement('canvas');

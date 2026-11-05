@@ -1,5 +1,3 @@
-// Acabados disponibles en el configurador. Se comparten entre la UI (muestras de
-// color) y la escena 3D (parámetros PBR del material).
 
 export type FinishId = 'negro' | 'oxido' | 'envejecido' | 'inox';
 
@@ -7,8 +5,8 @@ export interface Finish
 {
     id:        FinishId;
     label:     string;
-    swatch:    string; // color de la muestra en la UI
-    color:     string; // color base del metal
+    swatch:    string;
+    color:     string;
     metalness: number;
     roughness: number;
 }
@@ -24,7 +22,7 @@ export const findFinish = (id: FinishId): Finish => FINISHES.find(f => f.id === 
 
 export interface RosetteParts
 {
-    scrolls: boolean; // volutas
-    spears:  boolean; // lanzas
-    collars: boolean; // collarines
+    scrolls: boolean;
+    spears:  boolean;
+    collars: boolean;
 }

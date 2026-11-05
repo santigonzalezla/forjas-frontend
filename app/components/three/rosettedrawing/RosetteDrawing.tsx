@@ -7,8 +7,6 @@ import {buildRosette, toSvgPath} from '@/lib/rosette';
 
 const GEOMETRY = buildRosette();
 
-// La roseta del logo dibujándose trazo a trazo (anime.js createDrawable).
-// Es el póster mientras carga el 3D y la versión para movimiento reducido.
 const RosetteDrawing = ({hidden = false}: {hidden?: boolean}) =>
 {
     const rootRef = useRef<SVGSVGElement>(null);

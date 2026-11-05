@@ -17,7 +17,6 @@ type SearchParams = Promise<Record<string, string | string[] | undefined>>;
 
 const first = (value: string | string[] | undefined) => (Array.isArray(value) ? value[0] : value);
 
-// Lee ?type= y ?piece= (producto de la tienda) y arma el estado inicial del asistente
 const Wizard = async ({searchParams}: {searchParams: SearchParams}) =>
 {
     const params  = await searchParams;

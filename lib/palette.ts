@@ -1,6 +1,3 @@
-// Paleta de pinturas del taller, tomada de sus piezas: el rojo del sofá tanque,
-// el celeste del butaco, los colores de las mesas nido… Los id coinciden con el
-// backend (configurator.pricing.ts → PALETTE).
 
 export type PaletteId = 'rojo' | 'naranja' | 'amarillo' | 'verde' | 'lima' | 'turquesa' | 'celeste' | 'azul' | 'morado' | 'blanco' | 'grafito' | 'negro-mate';
 
@@ -28,5 +25,4 @@ export const PALETTE: PaletteColor[] = [
 
 export const findColor = (id: PaletteId): PaletteColor => PALETTE.find(color => color.id === id) ?? PALETTE[0];
 
-// Mezcla vistosa para franjas y pintura artística (sin blanco ni negro)
 export const MIX: PaletteId[] = ['rojo', 'amarillo', 'azul', 'verde', 'naranja', 'turquesa', 'morado', 'lima', 'celeste'];

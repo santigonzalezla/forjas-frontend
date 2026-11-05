@@ -18,8 +18,6 @@ import {EXTRAS, ORNAMENTS, PATTERNS, PIECES, STYLES} from '@/lib/configurator';
 import {FINISHES} from '@/lib/finishes';
 import {UserRole, type ApiPricing} from '@/app/interfaces/admin';
 
-// En pantalla los multiplicadores se muestran como recargo en %: 1.15 → 15.
-// Es más natural para el dueño ("el barroco cuesta 30 % más").
 const toPercent   = (multiplier: number) => String(Math.round((multiplier - 1) * 1000) / 10);
 const fromPercent = (value: string) => 1 + Number(value || 0) / 100;
 const pct         = (fraction: number) => String(Math.round(fraction * 1000) / 10);
@@ -33,7 +31,6 @@ type FurnitureId  = keyof ApiPricing['pieces'];
 const ORNAMENTAL = PIECES.filter(piece => piece.family === 'ornamental') as (typeof PIECES[number] & {id: OrnamentalId})[];
 const FURNITURE  = PIECES.filter(piece => piece.family !== 'ornamental') as (typeof PIECES[number] & {id: FurnitureId})[];
 
-// Acabados con recargo: los metálicos y el pintado a color
 const FINISH_ROWS: {id: keyof ApiPricing['finishes']; label: string}[] = [...FINISHES, {id: 'pintado' as const, label: 'Pintado a color'}];
 
 const toDraft = (p: ApiPricing): Draft => ({

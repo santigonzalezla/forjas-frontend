@@ -1,6 +1,5 @@
 import styles from './catalogskeleton.module.css';
 
-// Esqueleto del catálogo: sale en el HTML estático mientras llegan los productos
 const CatalogSkeleton = () =>
 {
     return (

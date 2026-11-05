@@ -11,7 +11,6 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>
     loadingText?: string;
 }
 
-// Botón de acción del panel. Usa los mismos tokens que ButtonLink de la tienda.
 const Button = ({variant = 'primary', icon, loading = false, loadingText = 'Guardando…', children, disabled, type = 'button', ...rest}: ButtonProps) =>
 {
     return (

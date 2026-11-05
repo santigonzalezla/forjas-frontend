@@ -13,7 +13,6 @@ interface ButtonLinkProps
     icon?:     ReactNode;
 }
 
-// Botón con forma de píldora para enlaces de acción. Un solo primario por pantalla.
 const ButtonLink = ({href, children, variant = 'primary', external = false, icon}: ButtonLinkProps) =>
 {
     const content = (

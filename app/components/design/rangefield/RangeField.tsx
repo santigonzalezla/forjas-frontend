@@ -15,14 +15,11 @@ interface RangeFieldProps
     onChange: (value: number) => void;
 }
 
-// Medida con deslizador y campo numérico sincronizados. El campo acepta texto
-// libre mientras se escribe y lo ajusta al rango al salir.
 const RangeField = ({id, label, value, min, max, step = 5, unit = 'cm', onChange}: RangeFieldProps) =>
 {
     const [draft, setDraft]       = useState<string | null>(null);
     const [lastValue, setLast]    = useState(value);
 
-    // Si el valor cambia desde afuera (p. ej. al cambiar de tipo), se descarta el borrador
     if (value !== lastValue)
     {
         setLast(value);

@@ -13,21 +13,18 @@ import {buildWhatsAppLink} from '@/lib/whatsapp';
 interface ProjectsBentoProps
 {
     projects:     Project[];
-    years:        number;     // años de oficio, calculados en el servidor
-    craftImage:   MediaImage; // foto de fondo de la tarjeta de años
-    servicesImage: MediaImage; // foto de fondo de la tarjeta de servicios
+    years:        number;
+    craftImage:   MediaImage;
+    servicesImage: MediaImage;
 }
 
 const SERVICES = ['Portones', 'Rejas', 'Barandas', 'Puertas', 'Estructuras', 'Muebles', 'Lámparas', 'Restauración'];
 
-// Bento de proyectos: un selector de obras, la voz del taller, los años de oficio,
-// los servicios y el contacto, todo en un solo bloque del alto de la pantalla.
 const ProjectsBento = ({projects, years, craftImage, servicesImage}: ProjectsBentoProps) =>
 {
     const [active, setActive] = useState(0);
     const yearsRef            = useRef<HTMLSpanElement>(null);
 
-    // Conteo de años al entrar en pantalla
     useEffect(() =>
     {
         const el = yearsRef.current;

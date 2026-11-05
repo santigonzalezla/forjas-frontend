@@ -5,11 +5,9 @@ interface LogoProps
 {
     className?: string;
     priority?:  boolean;
-    onDark?:    boolean; // siempre la versión blanca (secciones negras como el footer)
+    onDark?:    boolean;
 }
 
-// Dos versiones del logo: a color para el tema claro y blanca para el oscuro.
-// Se alternan con CSS para que no haya salto al cambiar de tema.
 const Logo = ({className = '', priority = false, onDark = false}: LogoProps) =>
 {
     if (onDark)

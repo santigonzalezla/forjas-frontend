@@ -11,7 +11,6 @@ interface ProductGalleryProps
     name:   string;
 }
 
-// Galería con zoom: al pasar el cursor la foto se amplía hacia ese punto (patrón Lens)
 const ProductGallery = ({images, name}: ProductGalleryProps) =>
 {
     const [active, setActive] = useState(0);

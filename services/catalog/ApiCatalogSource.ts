@@ -6,9 +6,6 @@ import type {ApiCategory, ApiFeaturedPiece, ApiProduct, ApiProductImage} from '@
 import type {PaginatedResponse} from '@/app/interfaces/interfaces';
 import {ProductCategory, ProductType} from '@/app/interfaces/enums';
 
-// Adaptador: traduce las respuestas del backend Nest a los tipos de la tienda.
-// Si el backend cambia su forma, solo se toca este archivo.
-
 const CATEGORY_BY_SLUG: Record<string, ProductCategory> = {
     'muebles':         ProductCategory.FURNITURE,
     'iluminacion':     ProductCategory.LIGHTING,
@@ -18,7 +15,6 @@ const CATEGORY_BY_SLUG: Record<string, ProductCategory> = {
     'restauracion':    ProductCategory.RESTORATION,
 };
 
-// Producto sin fotos: se muestra el logo como respaldo en lugar de romper la tarjeta
 const FALLBACK_IMAGE: MediaImage = {src: '/brand/logo-color.png', alt: 'Forjas · Hierro Hecho Arte', width: 640, height: 261};
 
 const toImage = (image: ApiProductImage): MediaImage => ({src: image.url, alt: image.alt, width: image.width, height: image.height});

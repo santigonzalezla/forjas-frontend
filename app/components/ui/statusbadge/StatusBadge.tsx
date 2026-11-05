@@ -8,7 +8,6 @@ interface StatusBadgeProps
     label: string;
 }
 
-// Estado en texto con un punto de color; sin bordes ni mayúsculas
 const StatusBadge = ({tone, label}: StatusBadgeProps) =>
 {
     return <span className={styles.badge} data-tone={tone}>{label}</span>;

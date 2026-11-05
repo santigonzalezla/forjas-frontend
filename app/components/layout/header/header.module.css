@@ -2,7 +2,7 @@
 {
     position: sticky;
     top: 0;
-    z-index: 40;
+    z-index: 100;
     background: var(--page-bg);
     transition: background-color 0.3s ease;
 }
@@ -145,6 +145,22 @@
     font-size: 30px;
     font-weight: 500;
     letter-spacing: -0.025em;
+    color: var(--text-secondary);
+}
+
+.mobileExtra
+{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 22px;
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid var(--surface-bg);
+}
+
+.mobileExtraLink
+{
+    font-size: 16px;
     color: var(--text-secondary);
 }
 

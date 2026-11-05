@@ -142,7 +142,7 @@
     .hero,
     .recycled
     {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
         min-height: 0;
     }
 
@@ -153,6 +153,6 @@
 
     .team
     {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
     }
 }

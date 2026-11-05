@@ -22,6 +22,10 @@ const KH = [.98, .70, .46, .34, .26, .20, .15];
 const KB = [6, 0, 1.5, 3.5, 7, 11, 16];
 const KO = [0, 1, 1, 1, .85, .5, 0];
 
+const KX_MOBILE = [1.3, .64, .42, .29, .2, .13, .08];
+const KF_MOBILE = [1.08, .97, .9, .86, .83, .81, .79];
+const KH_MOBILE = [.98, .82, .58, .44, .34, .26, .2];
+
 const CARD_RATIO   = 0.78;
 const MOBILE_BREAK = 820;
 
@@ -33,6 +37,7 @@ const DepthLine = ({pieces}: DepthLineProps) =>
     const {addItem} = useCart();
 
     const stageRef    = useRef<HTMLDivElement>(null);
+    const lineRef     = useRef<HTMLDivElement>(null);
     const railRef     = useRef<HTMLDivElement>(null);
     const ringRef     = useRef<HTMLDivElement>(null);
     const numberRef   = useRef<HTMLSpanElement>(null);
@@ -49,9 +54,10 @@ const DepthLine = ({pieces}: DepthLineProps) =>
     useEffect(() =>
     {
         const stage = stageRef.current;
+        const line  = lineRef.current;
         const rail  = railRef.current;
         const ring  = ringRef.current;
-        if (!stage || !rail || !ring || total === 0) return;
+        if (!stage || !line || !rail || !ring || total === 0) return;
 
         const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -62,10 +68,10 @@ const DepthLine = ({pieces}: DepthLineProps) =>
 
         const measure = () =>
         {
-            W        = stage.clientWidth;
-            H        = stage.clientHeight;
-            base     = H * KH[0];
+            W        = line.clientWidth;
+            H        = line.clientHeight;
             isMobile = window.innerWidth <= MOBILE_BREAK;
+            base     = H * (isMobile ? KH_MOBILE : KH)[0];
             cardS    = isMobile ? 168 : rail.clientHeight / 3;
 
             cardRefs.current.forEach(card =>
@@ -100,11 +106,11 @@ const DepthLine = ({pieces}: DepthLineProps) =>
                 const t   = k - a;
                 const mix = (table: number[]) => table[a] + (table[b] - table[a]) * t;
 
-                const h = mix(KH) * H;
+                const h = mix(isMobile ? KH_MOBILE : KH) * H;
                 const s = h / base;
                 const w = h * CARD_RATIO;
-                const x = mix(KX) * W - w / 2;
-                const y = mix(KF) * H - h;
+                const x = mix(isMobile ? KX_MOBILE : KX) * W - w / 2;
+                const y = mix(isMobile ? KF_MOBILE : KF) * H - h;
 
                 card.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0) scale(${s.toFixed(4)})`;
                 card.style.zIndex    = String(100 - Math.round(d * 10));
@@ -321,7 +327,7 @@ const DepthLine = ({pieces}: DepthLineProps) =>
                 tabIndex={0}
                 aria-label="Recorrido por las piezas del taller. Arrastra o usa las flechas para cambiar de pieza."
             >
-                <div className={styles.line}>
+                <div ref={lineRef} className={styles.line}>
                     {pieces.map((piece, i) => (
                         <div
                             key={piece.id}

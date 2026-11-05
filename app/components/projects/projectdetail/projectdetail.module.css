@@ -139,7 +139,7 @@
 {
     .intro[data-split='true']
     {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
     }
 }
 
@@ -147,7 +147,7 @@
 {
     .gallery
     {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
     }
 
     .cta

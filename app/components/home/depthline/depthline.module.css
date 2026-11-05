@@ -14,6 +14,7 @@
     height: calc(100svh - 64px);
     min-height: 560px;
     max-height: 840px;
+    isolation: isolate;
 }
 
 .stage
@@ -372,21 +373,75 @@
 {
     .hero
     {
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr 220px;
-        height: calc(100svh - 64px);
+        --hero-left: 0px;
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: auto 210px;
+        gap: 24px;
+        height: auto;
+        min-height: 0;
         max-height: none;
-        padding-bottom: 8px;
+        padding-bottom: 16px;
+    }
+
+    .stage
+    {
+        display: flex;
+        flex-direction: column;
+        overflow: visible;
+        cursor: default;
+    }
+
+    .stage::before
+    {
+        display: none;
+    }
+
+    .intro
+    {
+        position: static;
+        order: -1;
+        max-width: none;
+        padding-top: 16px;
+    }
+
+    .heading
+    {
+        font-size: 44px;
+    }
+
+    .lead
+    {
+        font-size: 15px;
+        max-width: 320px;
     }
 
     .line
     {
-        mask-image: none;
+        position: relative;
+        inset: auto;
+        height: 44svh;
+        min-height: 300px;
+        max-height: 420px;
+        margin-top: 24px;
+        overflow: hidden;
+        mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.4) 18%, #000 40%);
     }
 
-    .hero
+    .tag
     {
-        --hero-left: 4px;
+        position: static;
+        margin-top: 12px;
+    }
+
+    .rollNumber
+    {
+        font-size: 28px;
+    }
+
+    .hint,
+    .ring
+    {
+        display: none;
     }
 
     .railCard::after
@@ -402,44 +457,4 @@
     {
         padding: 0 12px;
     }
-
-    .intro
-    {
-        top: 20px;
-        left: 20px;
-        right: 20px;
-    }
-
-    .heading
-    {
-        font-size: 44px;
-    }
-
-    .lead
-    {
-        font-size: 15px;
-        max-width: 280px;
-    }
-
-    .tag
-    {
-        left: 20px;
-        bottom: 20px;
-    }
-
-    .rollNumber
-    {
-        font-size: 28px;
-    }
-
-    .hint
-    {
-        display: none;
-    }
-
-    .ring
-    {
-        display: none;
-    }
-
 }

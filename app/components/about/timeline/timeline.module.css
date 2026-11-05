@@ -77,7 +77,8 @@
 {
     .item
     {
-        grid-template-columns: 1fr;
+        position: relative;
+        grid-template-columns: minmax(0, 1fr);
         gap: 14px;
         padding-left: 24px;
     }
@@ -86,10 +87,12 @@
     {
         position: static;
         padding-left: 0;
+        min-height: 0;
     }
 
     .marker::before
     {
-        left: -28px;
+        top: 26px;
+        left: -4px;
     }
 }

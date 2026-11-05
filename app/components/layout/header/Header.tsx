@@ -17,6 +17,13 @@ const NAV_LINKS = [
     {href: '/about',  label: 'Nosotros'},
 ];
 
+const MOBILE_EXTRA = [
+    {href: '/shop#buscar', label: 'Buscar en la tienda'},
+    {href: '/quote',       label: 'Cotizar'},
+    {href: '/contact',     label: 'Contacto'},
+    {href: '/account',     label: 'Mi cuenta'},
+];
+
 interface NavLinksProps
 {
     linkClass: string;
@@ -101,6 +108,13 @@ const Header = () =>
                     </div>
                     <nav aria-label="Móvil" className={`container ${styles.mobileNav}`}>
                         <NavList linkClass={styles.mobileLink} onNavigate={() => setMenuOpen(false)} />
+                    </nav>
+                    <nav aria-label="Más opciones" className={`container ${styles.mobileExtra}`}>
+                        {MOBILE_EXTRA.map(link => (
+                            <Link key={link.href} href={link.href} className={styles.mobileExtraLink} onClick={() => setMenuOpen(false)}>
+                                {link.label}
+                            </Link>
+                        ))}
                     </nav>
                 </div>
             )}

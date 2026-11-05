@@ -1,0 +1,31 @@
+.button
+{
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-pill);
+    background: var(--surface-bg);
+    color: var(--text-primary);
+    transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s var(--ease-out);
+}
+
+.button:hover
+{
+    background: var(--inverse-bg);
+    color: var(--inverse-text);
+}
+
+.button[data-added='true']
+{
+    background: var(--primary-color);
+    color: var(--primary-contrast);
+    transform: scale(1.06);
+}
+
+.button svg
+{
+    width: 18px;
+    height: 18px;
+}

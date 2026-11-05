@@ -1,0 +1,284 @@
+.page
+{
+    min-height: 60svh;
+    padding-block: 40px var(--section-y);
+}
+
+.title
+{
+    font-size: clamp(38px, 5vw, 64px);
+    line-height: 1.02;
+}
+
+.count
+{
+    margin-top: 6px;
+    color: var(--text-secondary);
+}
+
+.layout
+{
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 48px;
+    align-items: start;
+    margin-top: 36px;
+}
+
+.list
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.item
+{
+    display: grid;
+    grid-template-columns: 110px 1fr auto auto;
+    align-items: center;
+    gap: 20px;
+    padding: 18px 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--text-primary) 8%, transparent);
+}
+
+.item:first-child
+{
+    padding-top: 0;
+}
+
+.thumb
+{
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    border-radius: 12px;
+    background: var(--content-bg);
+}
+
+.thumbImage
+{
+    object-fit: cover;
+}
+
+.itemInfo
+{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    min-width: 0;
+}
+
+.itemName
+{
+    font-family: var(--font-display);
+    font-variation-settings: 'SOFT' 100;
+    font-size: 21px;
+    line-height: 1.2;
+}
+
+.itemPrice
+{
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.lineTotal
+{
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+.remove
+{
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: var(--radius-pill);
+    color: var(--text-secondary);
+}
+
+.remove:hover
+{
+    background: var(--content-bg);
+    color: #dc2626;
+}
+
+.remove svg
+{
+    width: 18px;
+    height: 18px;
+}
+
+.noteField
+{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 28px;
+}
+
+.noteLabel
+{
+    font-weight: 600;
+}
+
+.note
+{
+    min-height: 96px;
+    padding: 14px 16px;
+    border: 1px solid transparent;
+    border-radius: 14px;
+    background: var(--content-bg);
+    font-size: 15px;
+    resize: vertical;
+}
+
+.note:focus
+{
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.summary
+{
+    position: sticky;
+    top: 88px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+    padding: 26px;
+    border-radius: 20px;
+    background: var(--content-bg);
+}
+
+.summaryTitle
+{
+    font-size: 24px;
+}
+
+.rows
+{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.row
+{
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 15px;
+}
+
+.row dd
+{
+    font-variant-numeric: tabular-nums;
+}
+
+.muted
+{
+    color: var(--text-secondary);
+    text-align: right;
+}
+
+.total
+{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 14px;
+    border-top: 1px solid color-mix(in srgb, var(--text-primary) 10%, transparent);
+    font-size: 19px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+.checkout
+{
+    height: 48px;
+    border-radius: var(--radius-pill);
+    background: var(--primary-color);
+    color: var(--primary-contrast);
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.checkout:disabled
+{
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.checkoutNote
+{
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.summary > a
+{
+    justify-content: center;
+}
+
+.continue
+{
+    text-align: center;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.continue:hover
+{
+    color: var(--text-primary);
+}
+
+.empty
+{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 14px;
+}
+
+.emptyText
+{
+    color: var(--text-secondary);
+}
+
+.emptyActions
+{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+@media (max-width: 960px)
+{
+    .layout
+    {
+        grid-template-columns: 1fr;
+    }
+
+    .summary
+    {
+        position: static;
+    }
+}
+
+@media (max-width: 560px)
+{
+    .item
+    {
+        grid-template-columns: 84px 1fr auto;
+    }
+
+    .lineTotal
+    {
+        grid-column: 2;
+    }
+}

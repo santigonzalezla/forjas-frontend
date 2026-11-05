@@ -1,0 +1,26 @@
+.logo
+{
+    display: block;
+    height: 36px;
+}
+
+.logo img
+{
+    height: 100%;
+    width: auto;
+}
+
+.dark
+{
+    display: none !important;
+}
+
+:global([data-theme='dark']) .light
+{
+    display: none !important;
+}
+
+:global([data-theme='dark']) .dark
+{
+    display: block !important;
+}

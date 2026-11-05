@@ -1,0 +1,118 @@
+.bar
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.start
+{
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+}
+
+.round
+{
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-pill);
+    background: var(--content-bg);
+    color: var(--text-primary);
+    transition: background-color 0.2s ease, transform 0.15s var(--ease-out);
+}
+
+a.round:hover
+{
+    background: var(--surface-bg);
+}
+
+a.round:active
+{
+    transform: scale(0.94);
+}
+
+.round[data-disabled]
+{
+    color: var(--text-faint);
+    opacity: 0.5;
+}
+
+.round svg
+{
+    width: 18px;
+    height: 18px;
+}
+
+.crumbs
+{
+    min-width: 0;
+    font-size: 14px;
+}
+
+.crumbs ol
+{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    list-style: none;
+    white-space: nowrap;
+}
+
+.crumbs li
+{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+}
+
+.crumbs li + li::before
+{
+    content: '/';
+    color: var(--text-faint);
+}
+
+.crumbs a
+{
+    color: var(--text-secondary);
+    transition: color 0.2s ease;
+}
+
+.crumbs a:hover
+{
+    color: var(--text-primary);
+}
+
+/* La página actual se recorta si el nombre es largo */
+.crumbs span[aria-current]
+{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--text-primary);
+}
+
+.siblings
+{
+    display: flex;
+    gap: 8px;
+}
+
+@media (max-width: 600px)
+{
+    .crumbs li:not(:last-child)
+    {
+        display: none;
+    }
+
+    .crumbs li + li::before
+    {
+        content: none;
+    }
+}

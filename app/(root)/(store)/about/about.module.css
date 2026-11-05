@@ -1,0 +1,158 @@
+.hero
+{
+    display: grid;
+    grid-template-columns: 1fr minmax(300px, 0.8fr);
+    gap: 48px;
+    align-items: center;
+    min-height: calc(100svh - var(--header-h, 64px));
+    padding-block: 32px;
+}
+
+.title
+{
+    font-size: clamp(44px, 6vw, 84px);
+    line-height: 1;
+    letter-spacing: -0.03em;
+}
+
+.lead
+{
+    margin-top: 20px;
+    max-width: 520px;
+    font-size: 18px;
+    color: var(--text-secondary);
+}
+
+.heroMedia
+{
+    position: relative;
+    height: min(72svh, 640px);
+    overflow: hidden;
+    border-radius: 20px;
+    background: var(--content-bg);
+}
+
+.cover
+{
+    object-fit: cover;
+}
+
+.quoteBand
+{
+    display: flex;
+    align-items: center;
+    min-height: 26svh;
+}
+
+.quote
+{
+    max-width: 980px;
+    font-family: var(--font-display);
+    font-variation-settings: 'SOFT' 100;
+    font-size: clamp(28px, 3.6vw, 48px);
+    line-height: 1.15;
+}
+
+.section
+{
+    padding-block: var(--section-y) 0;
+}
+
+.sectionTitle
+{
+    margin-bottom: 20px;
+    font-size: clamp(30px, 3.4vw, 44px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+}
+
+.team
+{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    list-style: none;
+}
+
+.member
+{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 24px;
+    border-radius: 16px;
+    background: var(--content-bg);
+}
+
+.memberName
+{
+    font-family: var(--font-display);
+    font-variation-settings: 'SOFT' 100;
+    font-size: 22px;
+}
+
+.memberRole
+{
+    color: var(--text-secondary);
+}
+
+.craft
+{
+    max-width: 640px;
+    margin-top: 28px;
+    font-size: 18px;
+    color: var(--text-secondary);
+}
+
+.recycled
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+    padding-block: var(--section-y);
+}
+
+.recycledMedia
+{
+    position: relative;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    border-radius: 20px;
+    background: var(--content-bg);
+}
+
+.recycledText
+{
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    max-width: 460px;
+    color: var(--text-secondary);
+}
+
+.recycledText h2
+{
+    margin-bottom: 0;
+    color: var(--text-primary);
+}
+
+@media (max-width: 860px)
+{
+    .hero,
+    .recycled
+    {
+        grid-template-columns: 1fr;
+        min-height: 0;
+    }
+
+    .heroMedia
+    {
+        height: 52svh;
+    }
+
+    .team
+    {
+        grid-template-columns: 1fr;
+    }
+}

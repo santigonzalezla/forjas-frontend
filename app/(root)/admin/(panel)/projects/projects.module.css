@@ -1,0 +1,64 @@
+.project
+{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.project > span:last-child
+{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.thumb
+{
+    position: relative;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    overflow: hidden;
+    border-radius: 10px;
+    background: var(--page-bg);
+}
+
+.thumbImage
+{
+    object-fit: cover;
+}
+
+.noImage
+{
+    width: 20px;
+    height: 20px;
+    color: var(--text-faint);
+}
+
+.summary
+{
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.badges
+{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.state
+{
+    padding: 40px 0;
+    color: var(--text-secondary);
+}
+
+.stack
+{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}

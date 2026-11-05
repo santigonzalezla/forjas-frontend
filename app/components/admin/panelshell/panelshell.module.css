@@ -1,0 +1,30 @@
+.panel
+{
+    display: grid;
+    grid-template-columns: auto 1fr;
+    min-height: 100svh;
+}
+
+.main
+{
+    min-width: 0;
+}
+
+.content
+{
+    max-width: 1200px;
+    padding: 12px 28px 64px;
+}
+
+@media (max-width: 900px)
+{
+    .panel
+    {
+        grid-template-columns: 1fr;
+    }
+
+    .content
+    {
+        padding: 8px 16px 48px;
+    }
+}

@@ -1,0 +1,64 @@
+.actions
+{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 6px;
+}
+
+.buyRow
+{
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+
+.add
+{
+    flex: 1;
+    height: 46px;
+    padding: 0 22px;
+    border-radius: var(--radius-pill);
+    background: var(--primary-color);
+    color: var(--primary-contrast);
+    font-size: 15px;
+    font-weight: 600;
+    transition: background-color 0.2s ease, transform 0.2s var(--ease-out);
+}
+
+.add:hover
+{
+    background: var(--primary-hover);
+}
+
+.add:active
+{
+    transform: scale(0.98);
+}
+
+.add[data-added='true']
+{
+    background: #15803d;
+}
+
+.note
+{
+    max-width: 420px;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.customize
+{
+    font-size: 14px;
+    color: var(--text-secondary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s ease;
+}
+
+.customize:hover
+{
+    color: var(--primary-color);
+}

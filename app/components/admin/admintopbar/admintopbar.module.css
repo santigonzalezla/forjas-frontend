@@ -1,0 +1,102 @@
+.topbar
+{
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    padding: 0 28px;
+    background: var(--page-bg);
+}
+
+.menu
+{
+    display: none;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-pill);
+}
+
+.right
+{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+}
+
+.user
+{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-left: 6px;
+}
+
+.avatar
+{
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    color: var(--primary-contrast);
+    font-weight: 600;
+}
+
+.userText
+{
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.userName
+{
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.userRole
+{
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.logout
+{
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-pill);
+    color: var(--text-secondary);
+}
+
+.logout:hover
+{
+    background: var(--hover-bg);
+    color: #dc2626;
+}
+
+@media (max-width: 900px)
+{
+    .topbar
+    {
+        padding: 0 16px;
+    }
+
+    .menu
+    {
+        display: grid;
+    }
+
+    .userText
+    {
+        display: none;
+    }
+}

@@ -1,0 +1,39 @@
+.section
+{
+    min-height: 32svh;
+}
+
+.inner
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+}
+
+.title
+{
+    max-width: 620px;
+    font-size: clamp(30px, 4vw, 52px);
+    font-family: var(--font-display);
+    font-variation-settings: 'SOFT' 100;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.04;
+}
+
+.actions
+{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+@media (max-width: 900px)
+{
+    .inner
+    {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

@@ -1,0 +1,137 @@
+.wrapper
+{
+    overflow-x: auto;
+    border-radius: 16px;
+    background: var(--content-bg);
+}
+
+.table
+{
+    width: 100%;
+    min-width: 760px;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.table th
+{
+    padding: 14px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.table td
+{
+    padding: 12px 16px;
+    border-top: 1px solid color-mix(in srgb, var(--text-primary) 6%, transparent);
+    vertical-align: middle;
+}
+
+.table tbody tr
+{
+    transition: background-color 0.15s ease;
+}
+
+.table tbody tr:hover
+{
+    background: color-mix(in srgb, var(--page-bg) 55%, transparent);
+}
+
+.right
+{
+    text-align: right !important;
+    font-variant-numeric: tabular-nums;
+}
+
+.product
+{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.thumb
+{
+    position: relative;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    overflow: hidden;
+    border-radius: 10px;
+    background: var(--surface-bg);
+}
+
+.thumbImage
+{
+    object-fit: cover;
+}
+
+.noImage
+{
+    width: 20px;
+    height: 20px;
+    color: var(--text-faint);
+}
+
+.name
+{
+    display: block;
+    font-weight: 600;
+}
+
+.summary
+{
+    display: block;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.muted
+{
+    color: var(--text-secondary);
+}
+
+.actions
+{
+    display: flex;
+    justify-content: flex-end;
+    gap: 4px;
+}
+
+.action
+{
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: var(--radius-pill);
+    color: var(--text-secondary);
+}
+
+.action:hover
+{
+    background: var(--page-bg);
+    color: var(--text-primary);
+}
+
+.action[data-danger]:hover
+{
+    color: #dc2626;
+}
+
+.action svg
+{
+    width: 18px;
+    height: 18px;
+}
+
+.empty
+{
+    padding: 40px 0;
+    text-align: center;
+    color: var(--text-secondary);
+}

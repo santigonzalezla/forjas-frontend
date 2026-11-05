@@ -1,0 +1,421 @@
+.section
+{
+    background: var(--page-bg);
+}
+
+/* ── Encabezado ─────────────────────────────────────────────────────────── */
+
+.header
+{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 32px;
+    margin-bottom: 28px;
+}
+
+.title
+{
+    max-width: 760px;
+    font-size: clamp(28px, 3.4vw, 44px);
+    line-height: 1.08;
+}
+
+.lead
+{
+    margin-top: 10px;
+    max-width: 560px;
+    color: var(--text-secondary);
+}
+
+.allLink
+{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    padding: 12px 20px;
+    border-radius: var(--radius-pill);
+    background: var(--content-bg);
+    font-size: 15px;
+    font-weight: 600;
+    transition: background-color 0.2s ease, gap 0.2s var(--ease-out);
+}
+
+.allLink:hover
+{
+    gap: 12px;
+    background: var(--surface-bg);
+}
+
+.allLink svg
+{
+    width: 18px;
+    height: 18px;
+}
+
+/* ── Bento ──────────────────────────────────────────────────────────────── */
+
+.bento
+{
+    display: grid;
+    grid-template-columns: 1.15fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 14px;
+    height: clamp(460px, calc(100svh - var(--header-h) - 2 * var(--section-y) - 150px), 640px);
+}
+
+.card
+{
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    background: var(--content-bg);
+}
+
+.cardLabel,
+.cardLabelDark
+{
+    position: relative;
+    z-index: 2;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.cardLabel
+{
+    padding: 18px 20px 0;
+    color: rgba(255, 255, 255, 0.82);
+}
+
+.cardLabelDark
+{
+    color: var(--text-secondary);
+}
+
+.coverImage
+{
+    object-fit: cover;
+    transition: transform 1s var(--ease-out);
+}
+
+.card:hover .coverImage
+{
+    transform: scale(1.05);
+}
+
+/* ── Selector de obras ──────────────────────────────────────────────────── */
+
+.showcase
+{
+    grid-row: span 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.showcaseImage
+{
+    object-fit: cover;
+    opacity: 0;
+    transform: scale(1.08);
+    transition: opacity 0.7s ease, transform 1.4s var(--ease-out);
+}
+
+.showcaseImage[data-active='true']
+{
+    opacity: 1;
+    transform: scale(1);
+}
+
+.showcaseShade
+{
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(rgba(10, 12, 14, 0.45), transparent 30%),
+        linear-gradient(transparent 35%, rgba(10, 12, 14, 0.82));
+}
+
+.projectList
+{
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 0 12px 12px;
+    list-style: none;
+}
+
+.projectItem
+{
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    padding: 10px 10px;
+    border-radius: 12px;
+    text-align: left;
+    color: rgba(255, 255, 255, 0.6);
+    transition: color 0.25s ease, background-color 0.25s ease;
+}
+
+.projectItem[data-active='true']
+{
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(6px);
+}
+
+.projectName
+{
+    font-family: var(--font-display);
+    font-variation-settings: 'SOFT' 100;
+    font-size: 19px;
+    line-height: 1.2;
+}
+
+.projectType
+{
+    flex-shrink: 0;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+/* ── Cita ───────────────────────────────────────────────────────────────── */
+
+.quote
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 22px 24px;
+}
+
+.quoteText
+{
+    font-family: var(--font-display);
+    font-variation-settings: 'SOFT' 100;
+    font-size: clamp(20px, 1.8vw, 26px);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+}
+
+.quoteAuthor
+{
+    display: flex;
+    flex-direction: column;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.quoteAuthor span
+{
+    font-weight: 400;
+    color: var(--text-secondary);
+}
+
+/* ── Años de oficio ─────────────────────────────────────────────────────── */
+
+.years
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    text-align: center;
+}
+
+.yearsShade
+{
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 12, 14, 0.5);
+}
+
+.yearsNumber
+{
+    position: relative;
+    font-family: var(--font-display);
+    font-variation-settings: 'SOFT' 100;
+    font-size: clamp(64px, 7vw, 104px);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+}
+
+.yearsCaption
+{
+    position: relative;
+    margin-top: 6px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+/* ── Servicios ──────────────────────────────────────────────────────────── */
+
+.services
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.servicesShade
+{
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(rgba(10, 12, 14, 0.4), transparent 35%, rgba(10, 12, 14, 0.55));
+}
+
+.chipRows
+{
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-bottom: 16px;
+}
+
+.chipRow
+{
+    display: flex;
+    overflow: hidden;
+    mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+}
+
+.chipTrack
+{
+    display: flex;
+    flex-shrink: 0;
+    gap: 8px;
+    padding-right: 8px;
+    animation: chips 26s linear infinite;
+}
+
+.chipRow[data-reverse='true'] .chipTrack
+{
+    animation-direction: reverse;
+    animation-duration: 32s;
+}
+
+.chip
+{
+    padding: 8px 14px;
+    border-radius: var(--radius-pill);
+    background: rgba(17, 19, 21, 0.45);
+    backdrop-filter: blur(8px);
+    color: #ffffff;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+@keyframes chips
+{
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+
+/* ── Contacto ───────────────────────────────────────────────────────────── */
+
+.contact
+{
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 22px 24px;
+    transition: background-color 0.25s ease;
+}
+
+.contact:hover
+{
+    background: var(--surface-bg);
+}
+
+.contactMain
+{
+    margin-top: 8px;
+    font-size: clamp(18px, 1.6vw, 22px);
+    font-weight: 600;
+}
+
+.contactSub
+{
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.contactArrow
+{
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 52px;
+    height: 52px;
+    border-radius: var(--radius-pill);
+    background: var(--inverse-bg);
+    color: var(--inverse-text);
+    transition: transform 0.3s var(--ease-out);
+}
+
+.contact:hover .contactArrow
+{
+    transform: rotate(-12deg) scale(1.06);
+}
+
+.contactArrow svg
+{
+    width: 22px;
+    height: 22px;
+}
+
+@media (prefers-reduced-motion: reduce)
+{
+    .chipTrack
+    {
+        animation: none;
+    }
+}
+
+/* ── Responsive ─────────────────────────────────────────────────────────── */
+
+@media (max-width: 1024px)
+{
+    .bento
+    {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: none;
+        grid-auto-rows: 240px;
+        height: auto;
+    }
+
+    .showcase
+    {
+        grid-column: span 2;
+        grid-row: span 2;
+    }
+}
+
+@media (max-width: 640px)
+{
+    .header
+    {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .bento
+    {
+        grid-template-columns: 1fr;
+    }
+
+    .showcase
+    {
+        grid-column: auto;
+    }
+}

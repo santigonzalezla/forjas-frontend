@@ -1,0 +1,62 @@
+.help
+{
+    margin-top: -8px;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+/* Tabla de tres columnas hecha con grid: nombre, valor, segundo valor */
+.grid
+{
+    display: grid;
+    grid-template-columns: 160px 1fr 1fr;
+    gap: 10px 14px;
+    align-items: center;
+}
+
+.head
+{
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.line
+{
+    display: contents;
+}
+
+/* Las etiquetas de cada campo quedan para lectores de pantalla: el encabezado ya las nombra */
+.line label
+{
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+}
+
+.name
+{
+    font-weight: 600;
+}
+
+.state
+{
+    padding: 40px 0;
+    color: var(--text-secondary);
+}
+
+@media (max-width: 640px)
+{
+    .grid
+    {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .head:first-child,
+    .name
+    {
+        grid-column: 1 / -1;
+    }
+}

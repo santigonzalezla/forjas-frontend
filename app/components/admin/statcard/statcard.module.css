@@ -1,0 +1,40 @@
+.card
+{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 20px 22px;
+    border-radius: 16px;
+    background: var(--content-bg);
+    transition: background-color 0.2s ease;
+}
+
+a.card:hover
+{
+    background: var(--surface-bg);
+}
+
+.value
+{
+    font-family: var(--font-display);
+    font-variation-settings: 'SOFT' 100;
+    font-size: 40px;
+    line-height: 1.1;
+    font-variant-numeric: tabular-nums;
+}
+
+.label
+{
+    font-weight: 600;
+}
+
+.hint
+{
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.card[data-alert='true'] .value
+{
+    color: #b45309;
+}

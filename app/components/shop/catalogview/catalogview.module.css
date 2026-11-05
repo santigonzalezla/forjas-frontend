@@ -1,0 +1,120 @@
+.page
+{
+    padding-block: 40px var(--section-y);
+}
+
+.header
+{
+    max-width: 720px;
+    margin-bottom: 40px;
+}
+
+.title
+{
+    font-size: clamp(44px, 6vw, 80px);
+    line-height: 1;
+    letter-spacing: -0.03em;
+}
+
+.lead
+{
+    margin-top: 14px;
+    max-width: 520px;
+    color: var(--text-secondary);
+}
+
+.layout
+{
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 48px;
+    align-items: start;
+}
+
+.results
+{
+    min-width: 0;
+}
+
+.grid
+{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 36px 22px;
+}
+
+.empty
+{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 48px 0;
+}
+
+.emptyTitle
+{
+    font-family: var(--font-display);
+    font-variation-settings: 'SOFT' 100;
+    font-size: 26px;
+}
+
+.emptyText
+{
+    color: var(--text-secondary);
+}
+
+.custom
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-top: 56px;
+    padding: 28px 32px;
+    border-radius: 20px;
+}
+
+.customTitle
+{
+    font-family: var(--font-display);
+    font-variation-settings: 'SOFT' 100;
+    font-size: 26px;
+}
+
+.customText
+{
+    margin-top: 4px;
+    color: var(--text-secondary);
+}
+
+@media (max-width: 1024px)
+{
+    .grid
+    {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 860px)
+{
+    .layout
+    {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .custom
+    {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 480px)
+{
+    .grid
+    {
+        gap: 28px 12px;
+    }
+}

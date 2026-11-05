@@ -1,0 +1,71 @@
+.button
+{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 40px;
+    padding: 0 18px;
+    border-radius: var(--radius-pill);
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: background-color 0.2s ease, opacity 0.2s ease, transform 0.2s var(--ease-out);
+}
+
+.button:active:not(:disabled)
+{
+    transform: scale(0.98);
+}
+
+.button:disabled
+{
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.button svg
+{
+    width: 18px;
+    height: 18px;
+}
+
+.button[data-variant='primary']
+{
+    background: var(--primary-color);
+    color: var(--primary-contrast);
+}
+
+.button[data-variant='primary']:hover:not(:disabled)
+{
+    background: var(--primary-hover);
+}
+
+.button[data-variant='secondary']
+{
+    background: var(--surface-bg);
+    color: var(--text-primary);
+}
+
+.button[data-variant='ghost']
+{
+    background: transparent;
+    color: var(--text-secondary);
+}
+
+.button[data-variant='ghost']:hover:not(:disabled)
+{
+    background: var(--hover-bg);
+    color: var(--text-primary);
+}
+
+.button[data-variant='danger']
+{
+    background: #dc2626;
+    color: #ffffff;
+}
+
+.button[data-variant='danger']:hover:not(:disabled)
+{
+    background: #b91c1c;
+}

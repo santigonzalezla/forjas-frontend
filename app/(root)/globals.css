@@ -1,0 +1,313 @@
+/* ── Tokens ───────────────────────────────────────────────────────────────────
+   Claro por defecto. Oscuro opcional en grafito neutro (nada de cafés).
+   Mismos nombres de variables que LegalDocs para reutilizar patrones. */
+:root
+{
+    --font-family: var(--font-instrument), system-ui, sans-serif;
+    --font-display: var(--font-fraunces), Georgia, serif;
+
+    --page-bg: #ffffff;
+    --content-bg: #f6f5f3;
+    --surface-bg: #eeece8;
+    --hover-bg: #eeece8;
+
+    --text-primary: #16181a;
+    --text-secondary: #6b6f74;
+    --text-faint: #a3a7ab;
+
+    --primary-color: #1f6fa3;
+    --primary-hover: #185a85;
+    --primary-contrast: #ffffff;
+    --primary-color-alpha: rgba(31, 111, 163, 0.12);
+
+    --inverse-bg: #16181a;
+    --inverse-text: #ffffff;
+
+    --whatsapp: #25d366;
+
+    /* Hero en profundidad */
+    --stage-from: #f2f1ee;
+    --stage-to: #fbfbfa;
+    --floor-shadow: rgba(40, 44, 50, 0.22);
+
+    /* Escala */
+    --radius-sm: 8px;
+    --radius: 12px;
+    --radius-pill: 999px;
+    --container: 1280px;
+    --header-h: 64px;
+    --gutter: 24px;
+    --section-y: 72px;
+    --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+    color-scheme: light;
+}
+
+[data-theme="dark"]
+{
+    --page-bg: #111315;
+    --content-bg: #181b1e;
+    --surface-bg: #212529;
+    --hover-bg: #212529;
+
+    --text-primary: #f2f1ee;
+    --text-secondary: #9ba1a7;
+    --text-faint: #5d6369;
+
+    --primary-color: #5db4e8;
+    --primary-hover: #7cc3ee;
+    --primary-contrast: #0b1620;
+    --primary-color-alpha: rgba(93, 180, 232, 0.14);
+
+    --inverse-bg: #f2f1ee;
+    --inverse-text: #111315;
+
+    --stage-from: #15181b;
+    --stage-to: #1b1f23;
+    --floor-shadow: rgba(0, 0, 0, 0.55);
+
+    color-scheme: dark;
+}
+
+@media (min-width: 1024px)
+{
+    :root
+    {
+        --gutter: 40px;
+        --section-y: 72px;
+    }
+}
+
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html
+{
+    scroll-behavior: smooth;
+    background: var(--page-bg);
+}
+
+body
+{
+    font-family: var(--font-family);
+    font-size: 16px;
+    line-height: 1.55;
+    background: var(--page-bg);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+a
+{
+    color: inherit;
+    text-decoration: none;
+}
+
+img
+{
+    display: block;
+    max-width: 100%;
+}
+
+input, textarea, select, button
+{
+    font-family: var(--font-family);
+    font-size: inherit;
+    color: inherit;
+}
+
+button
+{
+    background: none;
+    border: 0;
+    cursor: pointer;
+}
+
+ul
+{
+    list-style: none;
+}
+
+/* Titulares en Fraunces: suaves, en minúscula normal, sin tracking abierto */
+h1, h2, h3,
+.display
+{
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-variation-settings: 'SOFT' 100;
+    letter-spacing: -0.02em;
+}
+
+:focus-visible
+{
+    outline: 2px solid var(--primary-color);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+/* ── Tonos de sección ──────────────────────────────────────────────────────
+   Algunas secciones invierten la paleta para dar contraste. Redefinen los mismos
+   tokens, así todo lo que hay adentro se adapta solo. En modo oscuro se invierten
+   otra vez: el grafito pasa a claro y el azul a celeste con texto oscuro.
+   .tone-ink usa el mismo negro pero NO se invierte: es negro en ambos temas
+   (footer). */
+.tone-dark,
+.tone-ink
+{
+    --page-bg: #16181a;
+    --content-bg: #1e2023;
+    --surface-bg: #2a2d31;
+    --hover-bg: #2a2d31;
+    --text-primary: #f2f1ee;
+    --text-secondary: #a3a9af;
+    --text-faint: #6b7177;
+    --primary-color: #5db4e8;
+    --primary-hover: #7cc3ee;
+    --primary-contrast: #0b1620;
+    --inverse-bg: #f2f1ee;
+    --inverse-text: #16181a;
+    --floor-shadow: rgba(0, 0, 0, 0.5);
+    background: var(--page-bg);
+    color: var(--text-primary);
+    color-scheme: dark;
+}
+
+/* En oscuro el negro del footer queda cerca del fondo: una línea lo separa */
+[data-theme="dark"] .tone-ink
+{
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+[data-theme="dark"] .tone-dark
+{
+    --page-bg: #f2f1ee;
+    --content-bg: #e9e7e2;
+    --surface-bg: #dedbd5;
+    --hover-bg: #dedbd5;
+    --text-primary: #16181a;
+    --text-secondary: #5f646a;
+    --text-faint: #8e9399;
+    --primary-color: #1f6fa3;
+    --primary-hover: #185a85;
+    --primary-contrast: #ffffff;
+    --inverse-bg: #16181a;
+    --inverse-text: #ffffff;
+    --floor-shadow: rgba(40, 44, 50, 0.22);
+    color-scheme: light;
+}
+
+.tone-brand
+{
+    --page-bg: #1f6fa3;
+    --content-bg: #1a6293;
+    --surface-bg: rgba(255, 255, 255, 0.14);
+    --hover-bg: rgba(255, 255, 255, 0.2);
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.78);
+    --text-faint: rgba(255, 255, 255, 0.55);
+    --primary-color: #ffffff;
+    --primary-hover: #e6f2fa;
+    --primary-contrast: #1f6fa3;
+    --inverse-bg: #ffffff;
+    --inverse-text: #1f6fa3;
+    background: var(--page-bg);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .tone-brand
+{
+    --page-bg: #5db4e8;
+    --content-bg: #52a8dc;
+    --surface-bg: rgba(11, 22, 32, 0.12);
+    --hover-bg: rgba(11, 22, 32, 0.18);
+    --text-primary: #0b1620;
+    --text-secondary: rgba(11, 22, 32, 0.75);
+    --text-faint: rgba(11, 22, 32, 0.5);
+    --primary-color: #0b1620;
+    --primary-hover: #1b2a36;
+    --primary-contrast: #5db4e8;
+    --inverse-bg: #0b1620;
+    --inverse-text: #5db4e8;
+}
+
+/* ── Utilidades globales mínimas ──────────────────────────────────────────── */
+
+/* Regla de layout: las secciones completas ocupan al menos todo el viewport
+   (menos el header) con el contenido centrado; las bandas ocupan ~30%. */
+.section
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: calc(100svh - var(--header-h));
+    padding-block: var(--section-y);
+}
+
+.band
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 30svh;
+    padding-block: 48px;
+}
+
+.container
+{
+    width: 100%;
+    max-width: var(--container);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+}
+
+.visuallyHidden
+{
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+/* Revelado con anime.js: solo se oculta si el script de cabecera marcó .js,
+   así el contenido nunca queda invisible si JavaScript falla. */
+html.js [data-reveal]
+{
+    opacity: 0;
+}
+
+/* El split de palabras recorta con overflow: clip; este margen evita cortar
+   los trazos que bajan de la línea (j, g, p, ç) */
+[data-reveal-words] span[style*='overflow']
+{
+    padding-bottom: 0.14em;
+    margin-bottom: -0.14em;
+}
+
+@media (prefers-reduced-motion: reduce)
+{
+    html.js [data-reveal]
+    {
+        opacity: 1;
+    }
+}
+
+/* Texto solo para lectores de pantalla */
+.sr-only
+{
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}

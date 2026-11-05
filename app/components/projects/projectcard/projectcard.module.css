@@ -1,0 +1,63 @@
+.card
+{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 30px;
+    break-inside: avoid;
+}
+
+.media
+{
+    position: relative;
+    display: block;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: 16px;
+    background: var(--content-bg);
+}
+
+.media[data-tall='true']
+{
+    aspect-ratio: 3 / 4;
+}
+
+.image
+{
+    object-fit: cover;
+    transition: transform 0.8s var(--ease-out);
+}
+
+.card:hover .image
+{
+    transform: scale(1.04);
+}
+
+.meta
+{
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.title
+{
+    font-family: var(--font-display);
+    font-variation-settings: 'SOFT' 100;
+    font-size: 21px;
+    line-height: 1.2;
+}
+
+.type
+{
+    flex-shrink: 0;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.summary
+{
+    font-size: 14px;
+    color: var(--text-secondary);
+}

@@ -1,0 +1,22 @@
+.form
+{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.row
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+@media (max-width: 600px)
+{
+    .row
+    {
+        grid-template-columns: 1fr;
+    }
+}

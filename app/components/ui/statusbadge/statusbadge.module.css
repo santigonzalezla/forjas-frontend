@@ -1,0 +1,65 @@
+.badge
+{
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    background: var(--content-bg);
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.badge::before
+{
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+}
+
+.badge[data-tone='success']
+{
+    color: #15803d;
+    background: rgba(21, 128, 61, 0.1);
+}
+
+.badge[data-tone='warning']
+{
+    color: #b45309;
+    background: rgba(180, 83, 9, 0.1);
+}
+
+.badge[data-tone='neutral']
+{
+    color: var(--primary-color);
+    background: var(--primary-color-alpha);
+}
+
+.badge[data-tone='danger']
+{
+    color: #b91c1c;
+    background: rgba(185, 28, 28, 0.1);
+}
+
+.badge[data-tone='muted']
+{
+    color: var(--text-secondary);
+}
+
+:global([data-theme='dark']) .badge[data-tone='success']
+{
+    color: #4ade80;
+}
+
+:global([data-theme='dark']) .badge[data-tone='warning']
+{
+    color: #fbbf24;
+}
+
+:global([data-theme='dark']) .badge[data-tone='danger']
+{
+    color: #f87171;
+}

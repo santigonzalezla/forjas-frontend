@@ -1,0 +1,17 @@
+.stack
+{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.state
+{
+    color: var(--text-secondary);
+}
+
+.state a
+{
+    color: var(--primary-color);
+    font-weight: 600;
+}

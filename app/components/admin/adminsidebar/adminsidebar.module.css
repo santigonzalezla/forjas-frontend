@@ -1,0 +1,118 @@
+.sidebar
+{
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    width: 248px;
+    height: 100svh;
+    padding: 20px 14px;
+    background: var(--content-bg);
+}
+
+.brand
+{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 8px;
+}
+
+.brandTag
+{
+    padding: 3px 9px;
+    border-radius: var(--radius-pill);
+    background: var(--surface-bg);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.nav
+{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.link
+{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    font-size: 15px;
+    color: var(--text-secondary);
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.link:hover
+{
+    background: var(--hover-bg);
+    color: var(--text-primary);
+}
+
+.link[data-active='true']
+{
+    background: var(--page-bg);
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.link svg,
+.storeLink svg
+{
+    width: 19px;
+    height: 19px;
+    flex-shrink: 0;
+}
+
+.storeLink
+{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: auto;
+    padding: 10px 12px;
+    border-radius: 10px;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.storeLink:hover
+{
+    color: var(--primary-color);
+}
+
+.backdrop
+{
+    display: none;
+}
+
+@media (max-width: 900px)
+{
+    .sidebar
+    {
+        position: fixed;
+        z-index: 60;
+        left: 0;
+        transform: translateX(-100%);
+        transition: transform 0.3s var(--ease-out);
+    }
+
+    .sidebar[data-open='true']
+    {
+        transform: translateX(0);
+    }
+
+    .backdrop[data-open='true']
+    {
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 55;
+        background: rgba(10, 12, 14, 0.4);
+    }
+}

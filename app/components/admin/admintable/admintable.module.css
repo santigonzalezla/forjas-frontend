@@ -1,0 +1,96 @@
+/* Estilos compartidos de tablas del panel (categorías, equipo) */
+.wrapper
+{
+    overflow-x: auto;
+    border-radius: 16px;
+    background: var(--content-bg);
+}
+
+.table
+{
+    width: 100%;
+    min-width: 640px;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.table th
+{
+    padding: 14px 16px;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.table td
+{
+    padding: 14px 16px;
+    border-top: 1px solid color-mix(in srgb, var(--text-primary) 6%, transparent);
+    vertical-align: middle;
+}
+
+.strong
+{
+    font-weight: 600;
+}
+
+.muted
+{
+    color: var(--text-secondary);
+}
+
+.actions
+{
+    display: flex;
+    justify-content: flex-end;
+    gap: 4px;
+}
+
+.action
+{
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: var(--radius-pill);
+    color: var(--text-secondary);
+}
+
+.action:hover
+{
+    background: var(--page-bg);
+    color: var(--text-primary);
+}
+
+.action[data-danger]:hover
+{
+    color: #dc2626;
+}
+
+.action svg
+{
+    width: 18px;
+    height: 18px;
+}
+
+.empty
+{
+    padding: 40px 0;
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+.form
+{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.row
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}

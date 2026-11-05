@@ -1,0 +1,189 @@
+.card
+{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 22px;
+    border-radius: 16px;
+    background: var(--content-bg);
+}
+
+.title
+{
+    font-size: 20px;
+}
+
+.hint
+{
+    margin-top: 2px;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.grid
+{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+    list-style: none;
+}
+
+.item
+{
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-radius: 12px;
+    background: var(--page-bg);
+    cursor: grab;
+    transition: opacity 0.2s ease, transform 0.2s var(--ease-out);
+}
+
+.item[data-dragging='true']
+{
+    opacity: 0.4;
+    transform: scale(0.96);
+}
+
+.image
+{
+    object-fit: cover;
+    pointer-events: none;
+}
+
+.cover
+{
+    position: absolute;
+    left: 8px;
+    bottom: 8px;
+    padding: 3px 9px;
+    border-radius: var(--radius-pill);
+    background: rgba(17, 19, 21, 0.7);
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.grip,
+.delete
+{
+    position: absolute;
+    top: 8px;
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: var(--radius-pill);
+    background: rgba(255, 255, 255, 0.9);
+    color: #16181a;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.grip
+{
+    left: 8px;
+}
+
+.delete
+{
+    right: 8px;
+}
+
+.delete:hover
+{
+    color: #dc2626;
+}
+
+.item:hover .grip,
+.item:hover .delete,
+.delete:focus-visible
+{
+    opacity: 1;
+}
+
+.grip svg,
+.delete svg
+{
+    width: 16px;
+    height: 16px;
+}
+
+.dropzone
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 28px 16px;
+    border: 1.5px dashed color-mix(in srgb, var(--text-primary) 18%, transparent);
+    border-radius: 14px;
+    background: var(--page-bg);
+    color: var(--text-secondary);
+    transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.dropzone:hover,
+.dropzone[data-over='true']
+{
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.dropzone:disabled
+{
+    cursor: progress;
+}
+
+.dropzone svg
+{
+    width: 26px;
+    height: 26px;
+}
+
+.dropTitle
+{
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.dropHint
+{
+    font-size: 13px;
+}
+
+.roles
+{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.roles > span
+{
+    margin-right: 4px;
+}
+
+.role
+{
+    padding: 6px 12px;
+    border-radius: var(--radius-pill);
+    background: var(--page-bg);
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.role:hover
+{
+    color: var(--text-primary);
+}
+
+.role[data-active='true']
+{
+    background: var(--inverse-bg);
+    color: var(--inverse-text);
+}

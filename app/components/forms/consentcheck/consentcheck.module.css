@@ -1,0 +1,25 @@
+.consent
+{
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    cursor: pointer;
+}
+
+.box
+{
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    accent-color: var(--primary-color);
+}
+
+.link
+{
+    color: var(--text-primary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}

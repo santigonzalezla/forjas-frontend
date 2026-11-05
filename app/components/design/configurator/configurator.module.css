@@ -1,0 +1,403 @@
+/* Lienzo grande a la izquierda y panel de opciones a la derecha, todo en una pantalla */
+.layout
+{
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 360px;
+    gap: 20px;
+    /* El configurador ocupa una pantalla completa bajo el encabezado */
+    height: calc(100svh - var(--header-h) - 32px);
+    min-height: 560px;
+    padding-bottom: 16px;
+}
+
+.stage
+{
+    min-width: 0;
+    min-height: 0;
+}
+
+.panel
+{
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    border-radius: 24px;
+    background: var(--content-bg);
+    overflow: hidden;
+}
+
+.steps
+{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 4px;
+    padding: 18px 20px 0;
+}
+
+.stepTab
+{
+    padding-top: 10px;
+    border-top: 3px solid var(--surface-bg);
+    font-size: 13px;
+    color: var(--text-faint);
+    text-align: left;
+    transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+.stepTab:hover
+{
+    color: var(--text-primary);
+}
+
+.stepTab[data-state='done']
+{
+    border-color: var(--text-primary);
+    color: var(--text-secondary);
+}
+
+.stepTab[data-state='current']
+{
+    border-color: var(--primary-color);
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.product
+{
+    padding: 12px 20px 0;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.product strong
+{
+    color: var(--text-primary);
+}
+
+.body
+{
+    flex: 1;
+    min-height: 0;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.stack
+{
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.options
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.option
+{
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 14px 16px;
+    border-radius: 14px;
+    background: var(--page-bg);
+    text-align: left;
+    transition: background-color 0.2s ease, transform 0.15s var(--ease-out);
+}
+
+.option:hover
+{
+    background: var(--surface-bg);
+}
+
+.option:active
+{
+    transform: scale(0.97);
+}
+
+.option[data-active='true']
+{
+    background: var(--inverse-bg);
+    color: var(--inverse-text);
+}
+
+.optionLabel
+{
+    font-weight: 600;
+}
+
+.optionHint
+{
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+.group
+{
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.legend
+{
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.legend span
+{
+    font-weight: 400;
+    color: var(--text-secondary);
+}
+
+.chips
+{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.chip
+{
+    padding: 8px 14px;
+    border-radius: var(--radius-pill);
+    background: var(--page-bg);
+    font-size: 14px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.chip:hover:not(:disabled)
+{
+    background: var(--surface-bg);
+}
+
+.chip[aria-pressed='true']
+{
+    background: var(--inverse-bg);
+    color: var(--inverse-text);
+}
+
+.chip:disabled
+{
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.swatches
+{
+    display: flex;
+    gap: 12px;
+}
+
+.swatches[data-dense]
+{
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.swatches[data-dense] .swatch
+{
+    width: 30px;
+    height: 30px;
+}
+
+.swatch
+{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+    transition: transform 0.2s var(--ease-out), box-shadow 0.2s ease;
+}
+
+.swatch:hover
+{
+    transform: scale(1.08);
+}
+
+.swatch[aria-pressed='true']
+{
+    box-shadow: 0 0 0 3px var(--content-bg), 0 0 0 5px var(--text-primary);
+}
+
+.note
+{
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.form
+{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* El panel ya tiene el fondo de los campos: aquí van sobre blanco para distinguirse */
+.form input,
+.form select,
+.form textarea
+{
+    background-color: var(--page-bg);
+}
+
+.form input:hover,
+.form textarea:hover
+{
+    background-color: var(--page-bg);
+    border-color: var(--surface-bg);
+}
+
+.summary
+{
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: var(--page-bg);
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.row
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.footer
+{
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 18px 20px 20px;
+    background: var(--surface-bg);
+}
+
+.estimate
+{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.estimateLabel
+{
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.estimateValue
+{
+    font-family: var(--font-display);
+    font-variation-settings: 'SOFT' 100;
+    font-size: 26px;
+    line-height: 1.15;
+    font-variant-numeric: tabular-nums;
+    transition: opacity 0.2s ease;
+}
+
+.estimateValue[data-loading='true']
+{
+    opacity: 0.5;
+}
+
+.estimateNote
+{
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.footerActions
+{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.iconButton
+{
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: var(--page-bg);
+    transition: background-color 0.2s ease;
+}
+
+.iconButton:hover
+{
+    background: var(--content-bg);
+}
+
+.iconButton svg
+{
+    width: 20px;
+    height: 20px;
+}
+
+.links
+{
+    display: flex;
+    gap: 14px;
+    margin-left: auto;
+}
+
+.linkButton
+{
+    white-space: nowrap;
+    font-size: 14px;
+    color: var(--text-secondary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.linkButton:hover
+{
+    color: var(--text-primary);
+}
+
+@media (max-width: 960px)
+{
+    .layout
+    {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+
+    .stage
+    {
+        position: sticky;
+        top: var(--header-h);
+        z-index: 1;
+        height: 46svh;
+    }
+
+    .panel
+    {
+        overflow: visible;
+    }
+
+    .body
+    {
+        overflow: visible;
+    }
+}
+
+@media (max-width: 480px)
+{
+    .row
+    {
+        grid-template-columns: 1fr;
+    }
+}

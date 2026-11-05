@@ -1,0 +1,44 @@
+.stage
+{
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    max-width: 540px;
+    margin-inline: auto;
+    touch-action: pan-y;
+}
+
+.canvas
+{
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+
+.canvas[data-ready='true']
+{
+    opacity: 1;
+}
+
+.hint
+{
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    padding: 6px 14px;
+    border-radius: var(--radius-pill);
+    background: var(--surface-bg);
+    font-size: 13px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.6s ease 1.8s;
+    pointer-events: none;
+}
+
+.hint[data-ready='true']
+{
+    opacity: 1;
+}

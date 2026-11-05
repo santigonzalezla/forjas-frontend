@@ -1,0 +1,177 @@
+.list
+{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    list-style: none;
+}
+
+.item
+{
+    display: grid;
+    grid-template-columns: auto auto 1fr auto auto;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 16px 12px 20px;
+    border-radius: 16px;
+    background: var(--content-bg);
+}
+
+.position
+{
+    font-family: var(--font-display);
+    font-variation-settings: 'SOFT' 100;
+    font-size: 24px;
+    color: var(--text-faint);
+    font-variant-numeric: tabular-nums;
+}
+
+.thumb
+{
+    position: relative;
+    width: 72px;
+    height: 88px;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.thumbImage
+{
+    object-fit: cover;
+}
+
+.info
+{
+    min-width: 0;
+}
+
+.name
+{
+    font-family: var(--font-display);
+    font-variation-settings: 'SOFT' 100;
+    font-size: 19px;
+}
+
+.products
+{
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.actions
+{
+    display: flex;
+    gap: 2px;
+}
+
+.action
+{
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: var(--radius-pill);
+    color: var(--text-secondary);
+}
+
+.action:hover:not(:disabled)
+{
+    background: var(--page-bg);
+    color: var(--text-primary);
+}
+
+.action[data-danger]:hover
+{
+    color: #dc2626;
+}
+
+.action:disabled
+{
+    opacity: 0.3;
+    cursor: default;
+}
+
+.action svg
+{
+    width: 18px;
+    height: 18px;
+}
+
+.empty
+{
+    padding: 40px 0;
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+.form
+{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.row
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.picker
+{
+    border: 0;
+}
+
+.pickerLabel
+{
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.pickerEmpty
+{
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.pickerGrid
+{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 10px;
+}
+
+.pickerItem
+{
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 0 0 2px transparent;
+    transition: box-shadow 0.2s ease;
+}
+
+.pickerItem[data-selected='true']
+{
+    box-shadow: 0 0 0 3px var(--page-bg), 0 0 0 5px var(--primary-color);
+}
+
+@media (max-width: 720px)
+{
+    .item
+    {
+        grid-template-columns: auto 1fr;
+    }
+
+    .position
+    {
+        display: none;
+    }
+
+    .row
+    {
+        grid-template-columns: 1fr;
+    }
+}

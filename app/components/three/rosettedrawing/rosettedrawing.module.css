@@ -1,0 +1,28 @@
+.drawing
+{
+    position: absolute;
+    inset: 12%;
+    width: 76%;
+    height: 76%;
+    fill: none;
+    stroke: var(--text-primary);
+    stroke-width: 0.03;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: opacity 0.8s ease;
+}
+
+.drawing path[data-kind='ring']
+{
+    stroke-width: 0.055;
+}
+
+.drawing path[data-kind='diamond']
+{
+    fill: var(--text-primary);
+}
+
+.drawing[data-hidden='true']
+{
+    opacity: 0;
+}

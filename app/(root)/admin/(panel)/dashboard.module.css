@@ -1,0 +1,25 @@
+.grid
+{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 14px;
+    margin-bottom: 14px;
+}
+
+.loading
+{
+    color: var(--text-secondary);
+}
+
+.tip
+{
+    margin-top: 28px;
+    color: var(--text-secondary);
+    font-size: 15px;
+}
+
+.tipLink
+{
+    color: var(--primary-color);
+    font-weight: 600;
+}

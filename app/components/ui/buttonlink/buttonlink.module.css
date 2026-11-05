@@ -1,0 +1,58 @@
+.button
+{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 46px;
+    padding: 0 22px;
+    border-radius: var(--radius-pill);
+    font-size: 15px;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: background-color 0.2s ease, opacity 0.2s ease, transform 0.2s var(--ease-out);
+}
+
+.button:active
+{
+    transform: scale(0.98);
+}
+
+.button svg
+{
+    width: 20px;
+    height: 20px;
+}
+
+.button[data-variant='primary']
+{
+    background: var(--primary-color);
+    color: var(--primary-contrast);
+}
+
+.button[data-variant='primary']:hover
+{
+    background: var(--primary-hover);
+}
+
+.button[data-variant='secondary']
+{
+    background: var(--surface-bg);
+    color: var(--text-primary);
+}
+
+.button[data-variant='secondary']:hover
+{
+    background: color-mix(in srgb, var(--surface-bg) 80%, var(--text-primary) 8%);
+}
+
+.button[data-variant='inverse']
+{
+    background: var(--inverse-bg);
+    color: var(--inverse-text);
+}
+
+.button[data-variant='inverse']:hover
+{
+    opacity: 0.85;
+}

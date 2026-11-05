@@ -1,0 +1,30 @@
+.page
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: calc(70svh - var(--header-h));
+    padding-block: 48px;
+}
+
+.title
+{
+    font-size: clamp(40px, 5vw, 64px);
+    line-height: 1;
+    letter-spacing: -0.03em;
+}
+
+.text
+{
+    max-width: 520px;
+    margin-top: 16px;
+    color: var(--text-secondary);
+}
+
+.actions
+{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 28px;
+}

@@ -1,0 +1,158 @@
+.page
+{
+    padding-block: 28px var(--section-y);
+}
+
+.intro
+{
+    display: grid;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.intro[data-split='true']
+{
+    grid-template-columns: 1fr minmax(280px, 440px);
+    align-items: end;
+}
+
+.header
+{
+    max-width: 780px;
+    margin-top: 8px;
+}
+
+.title
+{
+    font-size: clamp(40px, 5.5vw, 76px);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+}
+
+.summary
+{
+    margin-top: 14px;
+    max-width: 560px;
+    font-size: 18px;
+    color: var(--text-secondary);
+}
+
+.facts
+{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    margin-top: 24px;
+}
+
+.fact dt
+{
+    font-size: 13px;
+    color: var(--text-faint);
+}
+
+.fact dd
+{
+    font-weight: 600;
+}
+
+.compare
+{
+    width: 100%;
+    max-width: min(440px, calc(70svh * 0.75));
+}
+
+.compareHint
+{
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.gallery
+{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.photo
+{
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: 18px;
+    background: var(--content-bg);
+}
+
+.photo[data-wide='true']
+{
+    grid-column: 1 / -1;
+    aspect-ratio: 16 / 9;
+}
+
+.photoImage
+{
+    object-fit: cover;
+}
+
+.description
+{
+    max-width: 640px;
+    margin-top: 40px;
+    font-size: 18px;
+    color: var(--text-secondary);
+}
+
+.cta
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-top: 56px;
+    padding: 30px 34px;
+    border-radius: 20px;
+}
+
+.ctaTitle
+{
+    font-family: var(--font-display);
+    font-variation-settings: 'SOFT' 100;
+    font-size: 28px;
+}
+
+.ctaText
+{
+    margin-top: 4px;
+    color: var(--text-secondary);
+}
+
+.ctaActions
+{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+@media (max-width: 860px)
+{
+    .intro[data-split='true']
+    {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 760px)
+{
+    .gallery
+    {
+        grid-template-columns: 1fr;
+    }
+
+    .cta
+    {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

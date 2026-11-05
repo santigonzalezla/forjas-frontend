@@ -1,0 +1,46 @@
+.filters
+{
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr auto;
+    align-items: end;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.tabs
+{
+    display: flex;
+    gap: 4px;
+    padding: 4px;
+    border-radius: var(--radius-pill);
+    background: var(--content-bg);
+}
+
+.tab
+{
+    height: 34px;
+    padding: 0 16px;
+    border-radius: var(--radius-pill);
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.tab[data-active='true']
+{
+    background: var(--page-bg);
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+@media (max-width: 900px)
+{
+    .filters
+    {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .searchField
+    {
+        grid-column: 1 / -1;
+    }
+}

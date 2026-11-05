@@ -1,0 +1,57 @@
+.header
+{
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.title
+{
+    font-size: clamp(28px, 3.4vw, 40px);
+    font-family: var(--font-display);
+    font-variation-settings: 'SOFT' 100;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.08;
+}
+
+.description
+{
+    margin-top: 10px;
+    max-width: 520px;
+    color: var(--text-secondary);
+}
+
+.action
+{
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+    font-size: 15px;
+    font-weight: 500;
+    transition: gap 0.2s var(--ease-out);
+}
+
+.action:hover
+{
+    gap: 10px;
+}
+
+.action svg
+{
+    width: 18px;
+    height: 18px;
+}
+
+@media (max-width: 640px)
+{
+    .header
+    {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+}

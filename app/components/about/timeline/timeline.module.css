@@ -1,0 +1,95 @@
+.list
+{
+    position: relative;
+    list-style: none;
+}
+
+/* Hilo vertical que une los hitos */
+.list::before
+{
+    content: '';
+    position: absolute;
+    top: 8px;
+    bottom: 8px;
+    left: 0;
+    width: 1px;
+    background: var(--surface-bg);
+}
+
+.item
+{
+    display: grid;
+    grid-template-columns: 120px 1fr minmax(220px, 320px);
+    gap: 32px;
+    align-items: center;
+    padding-block: 14px;
+}
+
+.marker
+{
+    position: relative;
+    min-height: 34px;
+    padding-left: 24px;
+}
+
+.marker::before
+{
+    content: '';
+    position: absolute;
+    top: 13px;
+    left: -4px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--primary-color);
+}
+
+.year
+{
+    font-family: var(--font-display);
+    font-variation-settings: 'SOFT' 100;
+    font-size: 34px;
+    line-height: 1;
+}
+
+.text
+{
+    max-width: 420px;
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+.media
+{
+    position: relative;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    border-radius: 16px;
+    background: var(--content-bg);
+}
+
+.image
+{
+    object-fit: cover;
+}
+
+@media (max-width: 860px)
+{
+    .item
+    {
+        grid-template-columns: 1fr;
+        gap: 14px;
+        padding-left: 24px;
+    }
+
+    .marker
+    {
+        position: static;
+        padding-left: 0;
+    }
+
+    .marker::before
+    {
+        left: -28px;
+    }
+}

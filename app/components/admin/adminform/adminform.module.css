@@ -1,0 +1,66 @@
+/* Diseño compartido de formularios del panel (proyectos, configurador): columna principal y lateral fijo */
+.layout
+{
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    align-items: start;
+    gap: 16px;
+}
+
+.main,
+.side
+{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 0;
+}
+
+.side
+{
+    position: sticky;
+    top: 76px;
+}
+
+.card
+{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 22px;
+    border-radius: 16px;
+    background: var(--content-bg);
+}
+
+/* Dentro de una tarjeta los controles van sobre el fondo de página para contrastar */
+.card input,
+.card select,
+.card textarea
+{
+    background-color: var(--page-bg);
+}
+
+.cardTitle
+{
+    font-size: 20px;
+}
+
+.row
+{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 14px;
+}
+
+@media (max-width: 1000px)
+{
+    .layout
+    {
+        grid-template-columns: 1fr;
+    }
+
+    .side
+    {
+        position: static;
+    }
+}
